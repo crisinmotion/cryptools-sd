@@ -1,22 +1,13 @@
-import logo from './logo.svg';
+import logo from './assets/images/SteelDemonLogo.png';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <img src={logo} alt="Cryptools by SteelDemon" />
+        <h1>Welcome to Cryptools!</h1>
+				<h5>Awesome features coming soon...</h5>
       </header>
     </div>
   );
