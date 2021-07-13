@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/cryptools-sd/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/cryptools-sd/static/js/main.81dddc16.chunk.js",
-    "main.js.map": "/cryptools-sd/static/js/main.81dddc16.chunk.js.map",
-    "runtime-main.js": "/cryptools-sd/static/js/runtime-main.7990e7b2.js",
-    "runtime-main.js.map": "/cryptools-sd/static/js/runtime-main.7990e7b2.js.map",
-    "static/js/2.a92d6b94.chunk.js": "/cryptools-sd/static/js/2.a92d6b94.chunk.js",
-    "static/js/2.a92d6b94.chunk.js.map": "/cryptools-sd/static/js/2.a92d6b94.chunk.js.map",
-    "static/js/3.e8690539.chunk.js": "/cryptools-sd/static/js/3.e8690539.chunk.js",
-    "static/js/3.e8690539.chunk.js.map": "/cryptools-sd/static/js/3.e8690539.chunk.js.map",
+    "main.css": "/cryptools-sd/static/css/main.09c69983.chunk.css",
+    "main.js": "/cryptools-sd/static/js/main.1aeb1512.chunk.js",
+    "main.js.map": "/cryptools-sd/static/js/main.1aeb1512.chunk.js.map",
+    "runtime-main.js": "/cryptools-sd/static/js/runtime-main.670f0030.js",
+    "runtime-main.js.map": "/cryptools-sd/static/js/runtime-main.670f0030.js.map",
+    "static/js/2.4c02bb58.chunk.js": "/cryptools-sd/static/js/2.4c02bb58.chunk.js",
+    "static/js/2.4c02bb58.chunk.js.map": "/cryptools-sd/static/js/2.4c02bb58.chunk.js.map",
+    "static/js/3.700ec1fa.chunk.js": "/cryptools-sd/static/js/3.700ec1fa.chunk.js",
+    "static/js/3.700ec1fa.chunk.js.map": "/cryptools-sd/static/js/3.700ec1fa.chunk.js.map",
     "index.html": "/cryptools-sd/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/cryptools-sd/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.a92d6b94.chunk.js.LICENSE.txt": "/cryptools-sd/static/js/2.a92d6b94.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/cryptools-sd/static/media/logo.6ce24c58.svg"
+    "static/css/main.09c69983.chunk.css.map": "/cryptools-sd/static/css/main.09c69983.chunk.css.map",
+    "static/js/2.4c02bb58.chunk.js.LICENSE.txt": "/cryptools-sd/static/js/2.4c02bb58.chunk.js.LICENSE.txt",
+    "static/media/SteelDemonLogo.346f9bfa.png": "/cryptools-sd/static/media/SteelDemonLogo.346f9bfa.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.7990e7b2.js",
-    "static/js/2.a92d6b94.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.81dddc16.chunk.js"
+    "static/js/runtime-main.670f0030.js",
+    "static/js/2.4c02bb58.chunk.js",
+    "static/css/main.09c69983.chunk.css",
+    "static/js/main.1aeb1512.chunk.js"
   ]
 }
