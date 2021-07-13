@@ -1,16 +1,23 @@
 {
   "name": "cryptools-sd",
   "version": "0.1.0",
-	"homepage": "http://crisinmotion.github.io/cryptools-sd",
+  "homepage": "http://crisinmotion.github.io/cryptools-sd",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "gh-pages": "^3.2.3",
+    "persist": "^0.2.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -18,9 +25,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-		"predeploy": "npm run build",
-  	"gh-deploy": "gh-pages -d build",
-		"deploy" : "npm run gh-deploy"
+    "predeploy": "npm run build",
+    "gh-deploy": "gh-pages -d build",
+    "deploy": "npm run gh-deploy"
   },
   "eslintConfig": {
     "extends": [
