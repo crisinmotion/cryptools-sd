@@ -5,13 +5,17 @@ import DefaultColumn from "../components/Columns/Default";
 import DefaultWrapper from "../components/Wrappers/Default";
 import { Grid } from "@material-ui/core";
 import { setBlocks } from "../store/actions/boards.actions";
+import LocalCurrencyValueBlock from "../components/Blocks/LocalCurrencyValueBlock";
+import BNBBalance from "../components/Blocks/BNBBalance";
+import BNBBalancePeso from "../components/Blocks/BNBBalancePeso";
+import TotalTransactions from "../components/Blocks/TotalTransactions";
 
 const BLOCK_OBJECT = {
 	blocks: {
-		'block-1': {id: 'block-1', content: 'Take out the garbage'},
-		'block-2': {id: 'block-2', content: 'Watch my favorite show'},
-		'block-3': {id: 'block-3', content: 'Charge my phone'},
-		'block-4': {id: 'block-4', content: 'Cook Dinner'},
+		'block-1': {id: 'block-1', content: <LocalCurrencyValueBlock/>},
+		'block-2': {id: 'block-2', content: <BNBBalance/>},
+		'block-3': {id: 'block-3', content: <BNBBalancePeso/>},
+		'block-4': {id: 'block-4', content: <TotalTransactions/>},
 	},		 
 }
 
@@ -23,7 +27,7 @@ const Portal = props => {
 
 	 useEffect(()=>{
 		const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
-		if(boards && boards.columns) {
+		if(boards && boards.columns && !boards.columns['column-1'].blockIds) {
 			const col = boards.columns['column-1']
 			requestSetBlock({
 				...col, 

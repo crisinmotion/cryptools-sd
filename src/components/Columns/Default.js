@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const DefaultColumn = props => {
 	const classes = useStyles();
   return (
-		<Paper {...props} className={classes.root}>
+		<Paper {...props} className={classes.root} elevation={0}>
 			<Droppable droppableId={props.column.id}>
 				{
 					(provided)=>(

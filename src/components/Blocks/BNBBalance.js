@@ -7,19 +7,19 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(2),
 		textAlign: 'center',
 		background: '#FFF2CC',
-		borderTop: 'solid 8px #E69138',		
+		borderTop: 'solid 8px #8E7118'
 	},
 }))
 
 
-const LocalCurrencyValueBlock = props => {
+const BNBBalance = props => {
 	const classes = useStyles();
   return (
 		<div {...props} className={classes.root}>
-			<Typography variant={'button'} display={'block'} gutterBottom>SKILL in PHP</Typography>
-			<Typography variant={'h3'} display={'block'} style={{color: '#B45F06', fontWeight: 500}} gutterBottom>₱ 268.00</Typography>
+			<Typography variant={'button'} display={'block'} gutterBottom>Your BNB Balance</Typography>
+			<Typography variant={'h3'} display={'block'} style={{color: '#8E7118', fontWeight: 500}} gutterBottom>0.033</Typography>
     </div>
   );
 };
 
-export default LocalCurrencyValueBlock
+export default BNBBalance
