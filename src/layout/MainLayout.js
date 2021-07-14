@@ -8,8 +8,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import {
-
-  toggleDrawer
+  toggleDrawer,
+	setActiveMenu
 } from "../store/actions"
 
 const drawerWidth = 280;
@@ -39,17 +39,27 @@ function MainLayout(props) {
     children,
     settings,
     updateDrawerState,
+		updateActiveMenu
   } = props;
 
   const [open, setOpen] = useState(settings.isDrawerOpen);
+  const [activeMenu, setActiveMenu] = useState(settings.activeMenu);
   
 
   useEffect(() => {
     updateDrawerState(open)
   },[open, updateDrawerState])
+  
+	useEffect(() => {
+    updateActiveMenu(activeMenu)
+  },[activeMenu, updateActiveMenu])
 
   const handleToggleDrawer = () => {
     setOpen(!open);
+  };
+  
+	const handleActiveMenu = (menu) => {
+    setActiveMenu(menu)
   };
 
   return(
@@ -58,6 +68,8 @@ function MainLayout(props) {
         <Sidebar
           open={settings.isDrawerOpen}
           handleToggleDrawer={handleToggleDrawer}
+					handleActiveMenu={handleActiveMenu}
+					activeMenu={activeMenu}
           {...props.children.props}
 				/>
           <main
@@ -81,6 +93,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       updateDrawerState: (params) => toggleDrawer(params),
+			updateActiveMenu: params => setActiveMenu(params)
     },
     dispatch
   );

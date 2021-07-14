@@ -1,9 +1,11 @@
 import {  
-  TOGGLEDRAWER
+  TOGGLEDRAWER,
+	SETACTIVEMENU
 } from "../constants/settings.constants";
 
 const INITIAL_STATE = {
- isDrawerOpen: true
+ isDrawerOpen: true,
+ activeMenu: 'cryptoblades'
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
@@ -14,6 +16,11 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isDrawerOpen: action.params
+      };
+    case SETACTIVEMENU:
+      return {
+        ...state,
+        activeMenu: action.params
       };
 
     default:

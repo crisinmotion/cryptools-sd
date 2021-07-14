@@ -85,6 +85,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	appName: {
 		marginLeft: theme.spacing(4)
+	},
+	activeMenu: {
+		backgroundColor: theme.palette.primary.main,
+		color: theme.palette.common.white,
+		'&:hover' :{			
+			backgroundColor: theme.palette.primary.main,
+		}
 	}
 }));
 
@@ -101,7 +108,8 @@ const MENU_ITEMS = [
 		text: 'CryptoBlades',
 		slug: '/',
 		url: '/',
-		icon: <ImageIcon params={{src: CryptoBladesLogo, alt: 'CB'}}/>
+		icon: <ImageIcon params={{src: CryptoBladesLogo, alt: 'CB'}}/>,
+		menuName: 'cryptoblades'
 	},
 ]
 
@@ -111,7 +119,9 @@ const Sidebar = props => {
 
 	const {
 		open,
-		handleToggleDrawer
+		handleToggleDrawer,
+		activeMenu,
+		handleActiveMenu
 	} = props
 
 	const iconsTransition = {
@@ -178,7 +188,14 @@ const Sidebar = props => {
         <Divider />
         <List>
           {MENU_ITEMS.map((item, index) => (
-            <ListItem button key={item.id} >
+            <ListItem button key={item.id}
+							className={clsx({
+								[classes.activeMenu] : activeMenu === item.menuName
+							})}
+
+							onClick={()=> handleActiveMenu(item.menuName)}
+						
+						>
               <ListItemIcon className={classes.sidebarItemIcon}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
