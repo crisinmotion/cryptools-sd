@@ -11,7 +11,8 @@ const theme = createTheme({
 			 black: '#2D2D2D', 
 			 white: "#ffffff",
 			 lightblue: '#00C9C6',
-			 lightbrown: '#F3EADA'
+			 lightbrown: '#F3EADA',
+			 lightgrey: '#EAF0F3'
 		 }
 	},
 	typography: {
