@@ -2,12 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 
-import { useDispatch } from 'react-redux'
-
-
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
-import { PageContainer } from '../components/Wrapper'
+import Sidebar from "../components/Sidebar/Sidebar";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -25,8 +20,6 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(1),
-    marginTop: theme.spacing(5),
     overflowX: "hidden",
     overflowY: "hidden",
     minHeight: 'calc(100vh - 50px)',
@@ -41,8 +34,6 @@ const styles = theme => ({
 });
 
 function MainLayout(props) {
-  const dispatch = useDispatch()
-
   const {
     classes,
     children,
@@ -55,33 +46,25 @@ function MainLayout(props) {
 
   useEffect(() => {
     updateDrawerState(open)
-  },[open])
+  },[open, updateDrawerState])
 
   const handleToggleDrawer = () => {
     setOpen(!open);
   };
 
-  const routeChange = (path, data) => {
-    children.props.history.push(path, data);
-  }
-  
   return(
     <Fragment>
-      <div className={classes.root}>
-        <Header
-          handleToggleDrawer={handleToggleDrawer}
-          open={settings.isDrawerOpen}
-          routeChange={routeChange}
-        />
+      <div className={classes.root}>       
         <Sidebar
           open={settings.isDrawerOpen}
           handleToggleDrawer={handleToggleDrawer}
-          {...props.children.props}/>
+          {...props.children.props}
+				/>
           <main
             className={classNames(classes.content)}>
-            <PageContainer>
+            <div>
               { children }
-            </PageContainer>
+            </div>
           </main>
       </div>
     </Fragment>

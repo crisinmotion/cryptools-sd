@@ -4,10 +4,11 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import { connect } from "react-redux";
 import Routes from './routes'
+import DEFAULT_THEME from './theme'
 
 const App = props => {
   return(
-    <MuiThemeProvider>
+    <MuiThemeProvider theme={DEFAULT_THEME}>
       <CssBaseline />
       <div>
         <Routes />

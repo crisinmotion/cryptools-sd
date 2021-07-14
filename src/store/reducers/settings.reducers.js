@@ -3,7 +3,7 @@ import {
 } from "../constants/settings.constants";
 
 const INITIAL_STATE = {
- isDrawerOpen: false
+ isDrawerOpen: true
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {

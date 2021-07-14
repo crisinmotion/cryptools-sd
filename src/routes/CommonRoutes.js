@@ -1,11 +1,11 @@
-import Hello from "../containers/Hello"
-import EmptyLayout from '../layout/EmptyLayout'
+import Portal from "../containers/Portal"
+import MainLayout from '../layout/MainLayout'
 
 let routes = [
     {
-        path: '/hello',
-        component: Hello,
-        layout: EmptyLayout,
+        path: '/cryptools-sd',
+        component: Portal,
+        layout: MainLayout,
         exact: true
     },
 ]

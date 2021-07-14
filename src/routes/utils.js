@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 const createRoutes = (routes) => {
   return routes.map((route, key) => {
