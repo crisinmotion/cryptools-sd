@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { DragDropContext } from 'react-beautiful-dnd';
 import DefaultColumn from "../components/Columns/Default";
 import DefaultWrapper from "../components/Wrappers/Default";
-import { Typography } from "@material-ui/core";
-import DefaultBlock from "../components/Blocks/Default";
+import { Grid } from "@material-ui/core";
 import { setBlocks } from "../store/actions/boards.actions";
+
+const BLOCK_OBJECT = {
+	blocks: {
+		'block-1': {id: 'block-1', content: 'Take out the garbage'},
+		'block-2': {id: 'block-2', content: 'Watch my favorite show'},
+		'block-3': {id: 'block-3', content: 'Charge my phone'},
+		'block-4': {id: 'block-4', content: 'Cook Dinner'},
+	},		 
+}
 
 const Portal = props => {
 	const { 
@@ -14,20 +22,18 @@ const Portal = props => {
 	 } = props
 
 	 useEffect(()=>{
-		console.log('BOARDS', boards)
-	 },[boards])
-
-	 const [state, setstate] = useState({
-		 blocks: {
-			 'block-1': {id: 'block-1', content: 'Take out the garbage'},
-			 'block-2': {id: 'block-2', content: 'Watch my favorite show'},
-			 'block-3': {id: 'block-3', content: 'Charge my phone'},
-			 'block-4': {id: 'block-4', content: 'Cook Dinner'},
-		 },		 
-	 })
+		const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
+		if(boards && boards.columns) {
+			const col = boards.columns['column-1']
+			requestSetBlock({
+				...col, 
+				blockIds: listAllBlocks
+			})
+		}
+	 },[])
 
 	const handleDragEnd = result => {
-		const { destination, source, draggableId } = result
+		const { destination, source } = result
 
 		if(!destination) {
 			return
@@ -60,14 +66,16 @@ const Portal = props => {
   return (
 		<DragDropContext onDragEnd={handleDragEnd}>
 			<DefaultWrapper>
+				<Grid container spacing={1}>
 				{
 					boards && boards.columnOrder && boards.columnOrder.map((columnId) => {
 						const column = boards.columns[columnId]
-						const blocks = column.blockIds.map(blockId => state.blocks[blockId])
-						return <DefaultColumn key={column.id} column={column} blocks={blocks}/>
+						const blocks = column.blockIds.map(blockId => BLOCK_OBJECT.blocks[blockId])
+						return <Grid item xs={12} md={6} lg={4} key={column.id}><DefaultColumn column={column} blocks={blocks}/></Grid>
 					})
 				}
-			
+				</Grid>
+				
 			</DefaultWrapper>
 		</DragDropContext>
   );

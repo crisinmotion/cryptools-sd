@@ -2,13 +2,23 @@ import React from "react";
 import { Paper } from "@material-ui/core";
 import { Droppable } from "react-beautiful-dnd";
 import DefaultBlock from "../Blocks/Default";
-
-
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles((theme) => ({
+	root: {
+    display: 'flex',
+		padding: theme.spacing(2,2,0,2),
+		width: '100%',
+		'& > div' : {
+			width: '100%'
+		},
+	},
+}))
 
 
 const DefaultColumn = props => {
+	const classes = useStyles();
   return (
-		<Paper {...props}>
+		<Paper {...props} className={classes.root}>
 			<Droppable droppableId={props.column.id}>
 				{
 					(provided)=>(
