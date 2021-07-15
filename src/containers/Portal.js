@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { DragDropContext } from 'react-beautiful-dnd';
 import DefaultColumn from "../components/Columns/Default";
@@ -8,6 +8,9 @@ import { setBlocks, updateColumnBlocks } from "../store/actions/boards.actions";
 import ConfigBlock from "../components/Blocks/ConfigBlock";
 import DefaultColoredBlock from "../components/Blocks/DefaultColoredBlock";
 import InputBlock from "../components/Blocks/InputBlock";
+import axios from 'axios';
+import numeral from 'numeral';
+import _ from 'lodash';
 
 
 const Portal = props => {
@@ -15,38 +18,131 @@ const Portal = props => {
 		boards,
 		updateBlocks,
 		userConfig,
-		updateColumnBlocks
+		updateColumnBlocks,
+		userCurrencies
 	 } = props
 
-			
-		const BLOCK_OBJECT = {
-			blocks: {
-				'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} -2,238.00`} color={'#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}}/>},
-				'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in Peso'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 3,695.00`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
-				'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 269.00`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
-				'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={'0.033'} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
-				'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 628.25`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
-				'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={'BNB 0.8'} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
-				'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 2,245.75`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
-				'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} -3,550.75`} color={'#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}}/>},
-				'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 7,245.75`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}}/>},
-				'ConfigBlock': {id: 'ConfigBlock', content: <ConfigBlock/>},
-				'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
-				'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in PHP'} currency={'PHP'} currencyId={'php'} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}}/>}
-			},		 
+	 const DEFAULT_USERDATA = {
+			currencies: {
+
+			},
+			userWalletTransactions: {
+
+			},
+			userBinanceBalance: {
+
+			}
+
 		}
 
-	 useEffect(()=>{
-		const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
-		if(boards && boards.columns && !boards.columns['column-1'].blockIds.length ) {
-			const col = boards.columns['column-1']
-			requestSetBlock({
-				...col, 
-				blockIds: listAllBlocks
-			})
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	 },[])
+	 	const [userData, setUserData] = useState(DEFAULT_USERDATA)
+		const [isLoading, setIsLoading] = useState(false)
+
+		useEffect(() => {
+			if(!isLoading && userConfig && userConfig.walletAddress && userConfig.apiKey && userConfig.farmingCurrency && userConfig.localCurrency && userCurrencies && Object.keys(userCurrencies).length > 0) {
+				let CURRENCIES_DATA = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency='+ (userCurrencies[userConfig.localCurrency] && userCurrencies[userConfig.localCurrency].id) +'&ids=binancecoin,' + (userCurrencies[userConfig.farmingCurrency] && userCurrencies[userConfig.farmingCurrency].id) + ''				
+				let BINANCE_WALLET_DATA = 'https://api.bscscan.com/api?module=account&action=txlist&address='+ userConfig.walletAddress +'&startblock=1&endblock=99999999&sort=desc&apikey=' + userConfig.apiKey + ''
+				let BINANCE_WALLET_BALANCE = 'https://api.bscscan.com/api?module=account&action=balance&address='+ userConfig.walletAddress +'&tag=latest&apikey=' + userConfig.apiKey + ''	
+				
+				const req_currency_data = axios.get(CURRENCIES_DATA)
+				const req_wallet_data = axios.get(BINANCE_WALLET_DATA)
+				const req_balance_data = axios.get(BINANCE_WALLET_BALANCE)
+				setIsLoading(true)
+				axios
+					.all([req_currency_data, req_wallet_data, req_balance_data])
+					.then(
+						axios.spread((...responses) => {
+							const respCurrencyData = responses[0];
+							const respWalletData = responses[1];
+							const respBalanceData = responses[2];
+
+							// use/access the results
+							setUserData((prevState) => {return {
+								currencies: {
+									...respCurrencyData.data
+								},
+								userWalletTransactions: {
+									...respWalletData.data
+								},
+								userBinanceBalance: {
+									...respBalanceData.data
+								}
+							}})
+							setIsLoading(false)
+						})
+					)
+					.catch(errors => {
+						// react on errors.
+						console.error(errors);
+						setIsLoading(false)
+					});
+			}
+			
+		}, [userConfig, userCurrencies])
+
+			let BLOCK_OBJECT = {}
+			const capitalCurrency = userConfig && userCurrencies && userCurrencies[userConfig.capitalCurrency] ? userCurrencies[userConfig.capitalCurrency] : 'PHP'
+
+		
+			const totalTransactionsList = _.filter(userData.userWalletTransactions && userData.userWalletTransactions.result, function(o) { return o.to === '0x39bea96e13453ed52a734b6aceed4c41f57b2271'; });
+			const totalTransactions = (5000000000 * (totalTransactionsList.reduce((total, obj) => (parseInt(obj.gasUsed)) + total,0)))/1000000000000000000
+
+			const currencyExchangeValue = userData.currencies[1] && userData.currencies[1].current_price
+			const userBNBBalance = userData.userBinanceBalance.result/1000000000000000000
+			const BNBCurrentPRice = userData.currencies[0] && userData.currencies[0].current_price
+			const userBNBBalanceExchange = (userData.currencies[0] && userData.currencies[0].current_price) * userBNBBalance
+			const currencyEarningExchange = (userConfig && userCurrencies[userConfig.farmingCurrency] && userCurrencies[userConfig.farmingCurrency].value) * currencyExchangeValue
+			const totalTransactionsInExchange = BNBCurrentPRice * totalTransactions
+			const ROIGasVSCapitalAndSumTxns = currencyEarningExchange - (capitalCurrency && parseInt(capitalCurrency.value) + totalTransactionsInExchange)
+			const ROICalcGasFee = currencyEarningExchange - totalTransactionsInExchange
+			const TotalInitialInvestmentPeso = (parseInt(capitalCurrency.value)) + totalTransactionsInExchange
+
+
+
+			const blockData = {
+				currencyExchangeValue: numeral(currencyExchangeValue || 0).format("0,0.00"),
+				userBNBBalance: numeral(userBNBBalance || 0).format("0,0.0000"),
+				userBNBBalanceExchange: numeral(userBNBBalanceExchange || 0).format("0,0.00"),
+				currencyEarningExchange: numeral(currencyEarningExchange || 0).format("0,0.00"),
+				totalTransactions: numeral(totalTransactions || 0).format('0,0.000'),
+				totalTransactionsInExchange: numeral(totalTransactionsInExchange || 0).format('0,0.00'),
+				ROIGasVSCapitalAndSumTxns: numeral(ROIGasVSCapitalAndSumTxns || 0).format("0,0.00"),
+				ROICalcGasFee: numeral(ROICalcGasFee || 0).format('0,0.00'),
+				TotalInitialInvestmentPeso: numeral(TotalInitialInvestmentPeso || 0).format("0,0.00")
+			}
+
+				
+			BLOCK_OBJECT = {
+				blocks: {
+					'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}}/>},
+					'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in Peso'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
+					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
+					'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={blockData.userBNBBalance} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
+					'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.userBNBBalanceExchange}`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
+					'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${userData.currencies[0] && userData.currencies[0].symbol.toUpperCase() || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}}/>},
+					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}}/>},
+					'ConfigBlock': {id: 'ConfigBlock', content: <ConfigBlock/>},
+					'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
+					'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in PHP'} currency={'PHP'} currencyId={'php'} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}}/>}
+				},		 
+			}
+		
+
+		useEffect(()=>{
+			
+			const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
+			if(boards && boards.columns && !boards.columns['column-1'].blockIds.length ) {
+				const col = boards.columns['column-1']
+				requestSetBlock({
+					...col, 
+					blockIds: listAllBlocks
+				})
+			}
+			
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		},[])
 
 	const handleDragEnd = result => {
 		const { destination, source } = result
@@ -133,7 +229,8 @@ const Portal = props => {
 const mapStateToProps = state => {
   return {
 		boards: state.boards,
-		userConfig: state.settings.userConfig
+		userConfig: state.settings.userConfig,
+		userCurrencies: state.settings.userCurrencies
   };
 };
 

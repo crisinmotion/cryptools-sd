@@ -36,9 +36,9 @@ const ConfigBlock = props => {
 	const defaultConfig = {
 		walletAddress: null,
 		apiKey: null,
-		localCurrency: 'php',
-		farmingCurrency: null,
-		capitalCurrency: null
+		localCurrency: 'PHP',
+		farmingCurrency: 'SKILL',
+		capitalCurrency: 'PHP'
 	}
 
 	const [config, setConfig] = useState(defaultConfig)
