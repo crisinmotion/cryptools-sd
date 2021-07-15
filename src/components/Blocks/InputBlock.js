@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import { InputAdornment, TextField, Typography } from "@material-ui/core";
-import { setUserCrypto } from "../../store/actions/settings.actions";
+import { setUserCurrencies } from "../../store/actions/settings.actions";
 const useStyles = makeStyles((theme) => ({
 	root: {    	
 		width: '100%',
@@ -33,9 +33,9 @@ const InputBlock = props => {
 	const {
 		settings,
 		title,
-		updateUserCrypto,
-		cryptoCoin,
-		cryptoId,
+		updateUserCurrencies,
+		currency,
+		currencyId,
 		style,
 		color
 	} = props
@@ -45,23 +45,27 @@ const InputBlock = props => {
 
 	const [config, setConfig] = useState(defaultConfig)
 	useEffect(()=>{
-		if(settings && !settings.userCrypto) {
-			if(config.length === 0 && config[cryptoCoin]) {
-				setConfig((prevState) => {return {...prevState, [cryptoCoin]: { value: '' }}})
+		if(settings && !settings.userCurrencies) {
+			if(config.length === 0 && config[currency]) {
+				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})
+				console.log('1')
+			}else{
+				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})
+				console.log('2')
 			}
-			updateUserCrypto(config)			
+			updateUserCurrencies(config)			
 		}else{
-			setConfig(settings.userCrypto)
+			setConfig(settings.userCurrencies)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
 
 	useEffect(() => {		
 		
-		updateUserCrypto(config)
+		updateUserCurrencies(config)
 		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [config, updateUserCrypto ])
+	}, [config, updateUserCurrencies ])
 
 
 
@@ -74,16 +78,15 @@ const InputBlock = props => {
 				className={classes.textFields}
 				onChange={(e)=> {
 					const value = e.target.value;
-					setConfig((prevState) => { return {...prevState, [cryptoCoin]: { value: value}}})
+					setConfig((prevState) => { return {...prevState, [currency]: { value: value}}})
 				}}
-				value={config && config[cryptoCoin] && config[cryptoCoin].value ? config[cryptoCoin].value : ''}
-				defaultValue={0}
-				placeholder={0}				
+				value={config && config[currency] && config[currency].value ? config[currency].value : ''}				
+				//placeholder={0}				
 				InputProps={{				
 					className: classes.inputField,	
 					style:{color: color},
 					type:'number',
-					endAdornment: <InputAdornment position="end" className={classes.inputAdornment}>{`${cryptoCoin}`}</InputAdornment>
+					endAdornment: <InputAdornment position="end" className={classes.inputAdornment}>{`${currency}`}</InputAdornment>
 				}}				
 			/>
     </div>
@@ -99,7 +102,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-		updateUserCrypto: (params) => dispatch(setUserCrypto(params))
+		updateUserCurrencies: (params) => dispatch(setUserCurrencies(params))
 	}
 };
 

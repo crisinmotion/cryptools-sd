@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Typography } from "@material-ui/core";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@material-ui/core";
 import { setConfigurations } from "../../store/actions/settings.actions";
 const useStyles = makeStyles((theme) => ({
 	root: {    	
@@ -14,11 +14,18 @@ const useStyles = makeStyles((theme) => ({
 	textFields: {
 		width: '100%',
 		marginBottom: theme.spacing(2),
-	}
+	},
+	formControl: {    
+    minWidth: 120,
+		width: '100%'
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 }))
 
 
-const WalletBlock = props => {
+const ConfigBlock = props => {
 	const {
 		settings,
 		updateConfigurations
@@ -28,7 +35,8 @@ const WalletBlock = props => {
 	const defaultConfig = {
 		walletAddress: null,
 		apiKey: null,
-		localCurrency: 'php'
+		localCurrency: 'php',
+		capitalCurrency: null
 	}
 
 	const [config, setConfig] = useState(defaultConfig)
@@ -48,7 +56,7 @@ const WalletBlock = props => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [config, updateConfigurations ])
 
-
+	console.log(settings.userCurrencies)
 
   return (
 		<div className={classes.root}>
@@ -94,6 +102,32 @@ const WalletBlock = props => {
 				value={config && config.localCurrency ? config.localCurrency : ''}
 				placeholder={'PHP'}
 			/>
+			{Object.keys(settings.userCurrencies).length > 0 && 
+			<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>
+        <InputLabel id="capital-currency-selector-label">Choose Currency for Capital</InputLabel>
+        <Select
+          labelId="capital-currency-selector-label"
+          id="capital-currency-selector"
+          value={settings.userConfig.capitalCurrency || ''}
+          onChange={(e)=> {
+						const value = e.target.value;
+						setConfig((prevState) => { return {...prevState, capitalCurrency: value}})
+					}}
+          className={classes.selectEmpty}
+        >
+					{ 
+						Object.keys(settings.userCurrencies).map((currency) => {
+
+							console.log(currency)
+							return (
+								<MenuItem value={currency} key={currency}>{currency}</MenuItem>
+							)
+						})
+
+					}
+
+        </Select>        
+      </FormControl>}
     </div>
   );
 };
@@ -114,4 +148,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WalletBlock);
+)(ConfigBlock);

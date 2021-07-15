@@ -2,7 +2,7 @@ import {
   TOGGLEDRAWER,
 	SETACTIVEMENU,
 	SET_CONFIGURATIONS,
-	SET_USER_CRYPTO
+	SET_USER_CURRENCIES
 } from "../constants/settings.constants";
 
 export const toggleDrawer = (params) => {
@@ -26,9 +26,9 @@ export const setConfigurations = (params) => {
   };
 }
 
-export const setUserCrypto = (params) => {
+export const setUserCurrencies = (params) => {
   return {
-    type: SET_USER_CRYPTO,
+    type: SET_USER_CURRENCIES,
     params
   };
 }

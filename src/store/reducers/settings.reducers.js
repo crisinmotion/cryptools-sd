@@ -2,14 +2,14 @@ import {
   TOGGLEDRAWER,
 	SETACTIVEMENU,
 	SET_CONFIGURATIONS,
-	SET_USER_CRYPTO
+	SET_USER_CURRENCIES
 } from "../constants/settings.constants";
 
 const INITIAL_STATE = {
  isDrawerOpen: true,
  activeMenu: 'cryptoblades',
  userConfig: null,
- userCrypto: {}
+ userCurrencies: {}
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
@@ -32,11 +32,11 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
 				...state,
 				userConfig: action.params
 			}
-		case SET_USER_CRYPTO :
+		case SET_USER_CURRENCIES :
 			return {
 				...state,
-				userCrypto: {
-					...state.userCrypto,
+				userCurrencies: {
+					...state.userCurrencies,
 					...action.params
 				}
 			}
