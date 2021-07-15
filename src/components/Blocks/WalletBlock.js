@@ -27,7 +27,8 @@ const WalletBlock = props => {
 
 	const defaultConfig = {
 		walletAddress: null,
-		apiKey: null,		
+		apiKey: null,
+		localCurrency: 'php'
 	}
 
 	const [config, setConfig] = useState(defaultConfig)
@@ -78,6 +79,20 @@ const WalletBlock = props => {
 					setConfig((prevState) => { return {...prevState, apiKey: value}})
 				}}
 				value={config && config.apiKey ? config.apiKey : ''}
+			/>
+			<TextField 
+				label={'Local Currency ID'}
+				variant={'outlined'}				
+				size={'small'}
+				className={classes.textFields}
+				error={!config.localCurrency}
+				helperText={!config.localCurrency ? 'Currency for Localized currency display' : ''}
+				onChange={(e)=> {
+					const value = e.target.value;
+					setConfig((prevState) => { return {...prevState, localCurrency: value}})
+				}}
+				value={config && config.localCurrency ? config.localCurrency : ''}
+				placeholder={'PHP'}
 			/>
     </div>
   );

@@ -8,21 +8,24 @@ import { setBlocks } from "../store/actions/boards.actions";
 import WalletBlock from "../components/Blocks/WalletBlock";
 import DefaultColoredBlock from "../components/Blocks/DefaultColoredBlock";
 
-const BLOCK_OBJECT = {
-	blocks: {
-		'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={'₱ 269.00'} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
-		'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={'0.033'} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
-		'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={'₱ 628.25'} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
-		'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={'BNB 0.8'} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
-		'WalletConfig': {id: 'WalletConfig', content: <WalletBlock/>},		
-	},		 
-}
 
 const Portal = props => {
 	const { 
 		boards,
-		updateBlocks
+		updateBlocks,
+		userConfig
 	 } = props
+
+			
+		const BLOCK_OBJECT = {
+			blocks: {
+				'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 269.00`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
+				'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={'0.033'} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
+				'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 628.25`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
+				'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={'BNB 0.8'} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+				'WalletConfig': {id: 'WalletConfig', content: <WalletBlock/>},		
+			},		 
+		}
 
 	 useEffect(()=>{
 		const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
@@ -87,7 +90,8 @@ const Portal = props => {
 
 const mapStateToProps = state => {
   return {
-		boards: state.boards 
+		boards: state.boards,
+		userConfig: state.settings.userConfig
   };
 };
 
