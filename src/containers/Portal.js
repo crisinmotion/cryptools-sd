@@ -7,6 +7,7 @@ import { Grid } from "@material-ui/core";
 import { setBlocks, updateColumnBlocks } from "../store/actions/boards.actions";
 import WalletBlock from "../components/Blocks/WalletBlock";
 import DefaultColoredBlock from "../components/Blocks/DefaultColoredBlock";
+import InputBlock from "../components/Blocks/InputBlock";
 
 
 const Portal = props => {
@@ -24,7 +25,8 @@ const Portal = props => {
 				'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={'0.033'} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
 				'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 628.25`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
 				'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={'BNB 0.8'} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
-				'WalletConfig': {id: 'WalletConfig', content: <WalletBlock/>},		
+				'WalletConfig': {id: 'WalletConfig', content: <WalletBlock/>},
+				'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} cryptoCoin={'SKILL'} cryptoId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#D5A6BD', backgroundColor: '#D9D2E9'}}/>}
 			},		 
 		}
 
