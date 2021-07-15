@@ -35,6 +35,7 @@ const InputBlock = props => {
 		title,
 		updateUserCurrencies,
 		currency,
+		currencyId,
 		style,
 		color
 	} = props
@@ -46,9 +47,9 @@ const InputBlock = props => {
 	useEffect(()=>{
 		if(settings && !settings.userCurrencies) {
 			if(config.length === 0 && config[currency]) {
-				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})				
+				setConfig((prevState) => {return {...prevState, [currency]: {...prevState[currency], value: '', id: currencyId }}})				
 			}else{
-				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})				
+				setConfig((prevState) => {return {...prevState, [currency]: {...prevState[currency], value: '', id: currencyId}}})				
 			}
 			updateUserCurrencies(config)			
 		}else{
@@ -60,6 +61,7 @@ const InputBlock = props => {
 	useEffect(() => {		
 		
 		updateUserCurrencies(config)
+		console.log(config)
 		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [config, updateUserCurrencies ])
@@ -75,7 +77,7 @@ const InputBlock = props => {
 				className={classes.textFields}
 				onChange={(e)=> {
 					const value = e.target.value;
-					setConfig((prevState) => { return {...prevState, [currency]: { value: value}}})
+					setConfig((prevState) => { return {...prevState, [currency]: { ...prevState[currency], value: value, id: currencyId }}})
 				}}
 				value={config && config[currency] && config[currency].value ? config[currency].value : ''}				
 				//placeholder={0}				
