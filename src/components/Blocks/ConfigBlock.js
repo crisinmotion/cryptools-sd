@@ -216,7 +216,7 @@ const ConfigBlock = props => {
 					</li>
 					<li>
 						<Typography variant={'body1'} gutterBottom style={{color:'red'}}>
-							<strong>Important Note:</strong> This key has nothing to do with your wallet security keys. Never use your Wallet security key on this field as this field never hides the value since this is a public data viewer only.  <br/><br/>
+							<strong>Important Note:</strong> This field has nothing to do with your wallet security keys. Never use your Wallet security key on this field as this field never hides the value since this is a public data viewer only.  <br/><br/>
 							<strong>This app will neither require nor ask your seed phrase or any security details of your wallet. Please keep your security details private. </strong>
 						</Typography>
 					</li>
