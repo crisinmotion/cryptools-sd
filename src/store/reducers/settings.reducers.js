@@ -9,7 +9,8 @@ const INITIAL_STATE = {
  isDrawerOpen: true,
  activeMenu: 'cryptoblades',
  userConfig: null,
- userCurrencies: {}
+ userCurrencies: {},
+ appVersion: 'v1.0-beta.01'
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@material-ui/core";
+import { FormControl, InputLabel, Link, MenuItem, Select, TextField, Typography } from "@material-ui/core";
 import { setConfigurations } from "../../store/actions/settings.actions";
+import DefaultDialog from "../Dialog/Default";
 const useStyles = makeStyles((theme) => ({
 	root: {    	
 		width: '100%',
@@ -42,6 +43,8 @@ const ConfigBlock = props => {
 	}
 
 	const [config, setConfig] = useState(defaultConfig)
+	const [apiKeyInfoOpen, setApiKeyInfoOpen] = useState(false)
+	const [walletInfoOpen, setWalletInfoOpen] = useState(false)
 	useEffect(()=>{
 		if(settings && !settings.userConfig) {			
 			updateConfigurations(config)
@@ -61,6 +64,12 @@ const ConfigBlock = props => {
   return (
 		<div className={classes.root}>
 			<Typography variant={'button'} display={'block'} gutterBottom>Configuration</Typography>
+			<Typography variant={'caption'} component={'div'} align={'left'} gutterBottom>
+				Why the app needs your wallet address? <Link href={'#'} onClick={(e)=> {
+					e.preventDefault();
+					setWalletInfoOpen(true)
+				}}>Expand Details</Link>
+			</Typography>
 			<TextField 
 				label={'Wallet Address'}
 				variant={'outlined'}
@@ -68,26 +77,31 @@ const ConfigBlock = props => {
 				size={'small'}
 				className={classes.textFields}
 				error={!config.walletAddress}
-				helperText={!config.walletAddress ? 'Wallet Address is required to pull your public records on BSCScan.' : ''}
+				helperText={!config.walletAddress ? 'Wallet Address required.' : ''}
 				onChange={(e)=> {
 					const value = e.target.value;
 					setConfig((prevState) => { return {...prevState, walletAddress: value}})
 				}}
 				value={config && config.walletAddress ? config.walletAddress : ''}
 			/>
+			<Typography variant={'caption'} component={'div'} align={'left'} gutterBottom>What is API Key and why do the app need it? <Link href={'#'} onClick={(e)=> {
+				e.preventDefault();
+				setApiKeyInfoOpen(true)
+			}}>Expand Details</Link>
+			</Typography>
 			<TextField 
 				label={'API Key'}
 				variant={'outlined'}				
 				size={'small'}
 				className={classes.textFields}
 				error={!config.apiKey}
-				helperText={!config.apiKey ? 'BSCScan API Key is required to access information from their endpoints.' : ''}
+				helperText={!config.apiKey ? 'API Key is required.' : ''}
 				onChange={(e)=> {
 					const value = e.target.value;
 					setConfig((prevState) => { return {...prevState, apiKey: value}})
 				}}
 				value={config && config.apiKey ? config.apiKey : ''}
-			/>
+			/>			
 			<TextField 
 				label={'Local Currency ID'}
 				variant={'outlined'}				
@@ -149,6 +163,65 @@ const ConfigBlock = props => {
 				</FormControl>
 			</Fragment>
 			}
+			<DefaultDialog open={apiKeyInfoOpen} closeCallback={() => setApiKeyInfoOpen(false) }
+				title={'What is API Key and why do the app need it?'}
+			>
+				<ol style={{padding: '0 20px 20px 10px'}}>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							We are using Binance Smart Chain Developer API to fetch community data from their server using your wallet address. 
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							Your wallet information and data we use on this app is also publicly accessible from the <Link href={'https://bscscan.com/'} color={'primary'} target="_blank" rel="noopener">BSCChain Website</Link>. We are only accessing it through API so we can have a more customized view of the data we need.
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							This API Key has nothing to do with anything private on your wallet. If you still don't trust the use of this app, please feel free to leave. 
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							To create your personal API Key, please create an account on <Link href={'https://bscscan.com/register'} target={'_blank'} rel="noopener">BSCScan here</Link> and create an API Key here <Link href={'https://bscscan.com/myapikey'} color={'primary'} target="_blank" rel="noopener">ClientPortal-&gt;MyApiKey</Link> area of BSCScan. 
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom style={{color:'red'}}>
+							<strong>Important Note:</strong> This key has nothing to do with your wallet security keys. Never use your Wallet security key on this field as this field never hides the API Key field since this is a public data viewer only.  <br/><br/>
+							<strong>This app will neither require nor ask your seed phrase or any security details of your wallet. Please keep your security details private. </strong>
+						</Typography>
+					</li>
+				</ol>
+			</DefaultDialog>
+			<DefaultDialog open={walletInfoOpen} closeCallback={() => setWalletInfoOpen(false) }
+				title={'Why the app needs your wallet address?'}
+			>
+				<ol style={{padding: '0 20px 20px 10px'}}>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							We are using Binance Smart Chain Developer API to fetch community data from their server using your wallet address. 
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							Your wallet information and data we use on this app is also publicly accessible from the <Link href={'https://bscscan.com/'} color={'primary'} target="_blank" rel="noopener">BSCChain Website</Link>. We are only accessing it through API so we can have a more customized view of the data we need.
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom>
+							If you still don't trust the use of this app, please feel free to leave. 
+						</Typography>
+					</li>
+					<li>
+						<Typography variant={'body1'} gutterBottom style={{color:'red'}}>
+							<strong>Important Note:</strong> This key has nothing to do with your wallet security keys. Never use your Wallet security key on this field as this field never hides the value since this is a public data viewer only.  <br/><br/>
+							<strong>This app will neither require nor ask your seed phrase or any security details of your wallet. Please keep your security details private. </strong>
+						</Typography>
+					</li>
+				</ol>
+			</DefaultDialog>
     </div>
   );
 };

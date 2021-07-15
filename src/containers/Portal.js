@@ -77,7 +77,7 @@ const Portal = props => {
 						setIsLoading(false)
 					});
 			}
-			
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [userConfig, userCurrencies])
 
 			let BLOCK_OBJECT = {}
@@ -119,7 +119,7 @@ const Portal = props => {
 					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
 					'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={blockData.userBNBBalance} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
 					'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.userBNBBalanceExchange}`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
-					'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${userData.currencies[0] && userData.currencies[0].symbol.toUpperCase() || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+					'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
 					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
 					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}}/>},
 					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}}/>},
