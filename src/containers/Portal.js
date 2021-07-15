@@ -4,7 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import DefaultColumn from "../components/Columns/Default";
 import DefaultWrapper from "../components/Wrappers/Default";
 import { Grid } from "@material-ui/core";
-import { setBlocks } from "../store/actions/boards.actions";
+import { setBlocks, updateColumnBlocks } from "../store/actions/boards.actions";
 import WalletBlock from "../components/Blocks/WalletBlock";
 import DefaultColoredBlock from "../components/Blocks/DefaultColoredBlock";
 
@@ -13,7 +13,8 @@ const Portal = props => {
 	const { 
 		boards,
 		updateBlocks,
-		userConfig
+		userConfig,
+		updateColumnBlocks
 	 } = props
 
 			
@@ -53,21 +54,54 @@ const Portal = props => {
 			return
 		}
 
-		const column = boards.columns[source.droppableId]
-		const newBlockIds = Array.from(column.blockIds)
-
-		let plucked = newBlockIds.splice(source.index, 1)[0]; // cut the element at index 'from'
-    newBlockIds.splice(destination.index, 0, plucked); 
+		const start = boards.columns[source.droppableId]
+		const finish = boards.columns[destination.droppableId]
 		
-		const newColumn = {
-			...column,
-			blockIds: newBlockIds
+
+		if(start === finish) {
+			const newBlockIds = Array.from(start.blockIds)
+			let plucked = newBlockIds.splice(source.index, 1)[0]; // cut the element at index 'from'
+			newBlockIds.splice(destination.index, 0, plucked); 
+			
+			const newColumn = {
+				...start,
+				blockIds: newBlockIds
+			}
+			requestSetBlock(newColumn)
+			return
 		}
-		requestSetBlock(newColumn)
+
+		//? If dropping to a different column
+		const startBlockIds = Array.from(start.blockIds)
+		let pluckedStart = startBlockIds.splice(source.index, 1)[0];
+		 
+		const newStartColumn = {
+			...start,
+			blockIds: startBlockIds
+		}
+
+		const finishBlockIds = Array.from(finish.blockIds)
+		finishBlockIds.splice(destination.index,0, pluckedStart)
+		
+		const newFinishColumn = {
+			...finish,
+			blockIds: finishBlockIds
+		}
+
+		const updatedColumns = {
+			[newStartColumn.id] : newStartColumn,
+			[newFinishColumn.id] : newFinishColumn
+		}
+
+		requestUpdateColumnBlocks(updatedColumns)		
 	}
 
 	const requestSetBlock = (params) => {
 		updateBlocks(params)
+	}
+	
+	const requestUpdateColumnBlocks = (params) => {
+		updateColumnBlocks(params)
 	}
 	
   return (
@@ -97,7 +131,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-		updateBlocks: (params) => dispatch(setBlocks(params))
+		updateBlocks: (params) => dispatch(setBlocks(params)),
+		updateColumnBlocks: (params) => dispatch(updateColumnBlocks(params))
 	}
 };
 

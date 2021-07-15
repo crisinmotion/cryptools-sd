@@ -1,6 +1,7 @@
 import {  
   SET_BLOCKS,
-	UPDATE_COLUMN_ORDER
+	UPDATE_COLUMN_ORDER,
+	UPDATE_COLUMN_BLOCKS
 } from "../constants/boards.constants";
 
 const INITIAL_STATE = {
@@ -38,6 +39,14 @@ const BOARDS_REDUCER = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         columnOrder: action.params
+      };
+    case UPDATE_COLUMN_BLOCKS:
+      return {
+        ...state,
+        columns: {
+					...state.columns,
+					...action.params
+				}
       };
 
     default:
