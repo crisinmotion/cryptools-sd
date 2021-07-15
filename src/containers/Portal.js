@@ -9,6 +9,7 @@ import LocalCurrencyValueBlock from "../components/Blocks/LocalCurrencyValueBloc
 import BNBBalance from "../components/Blocks/BNBBalance";
 import BNBBalancePeso from "../components/Blocks/BNBBalancePeso";
 import TotalTransactions from "../components/Blocks/TotalTransactions";
+import WalletBlock from "../components/Blocks/WalletBlock";
 
 const BLOCK_OBJECT = {
 	blocks: {
@@ -16,6 +17,7 @@ const BLOCK_OBJECT = {
 		'block-2': {id: 'block-2', content: <BNBBalance/>},
 		'block-3': {id: 'block-3', content: <BNBBalancePeso/>},
 		'block-4': {id: 'block-4', content: <TotalTransactions/>},
+		'block-5': {id: 'block-5', content: <WalletBlock/>},
 	},		 
 }
 
@@ -27,7 +29,7 @@ const Portal = props => {
 
 	 useEffect(()=>{
 		const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
-		if(boards && boards.columns && !boards.columns['column-1'].blockIds) {
+		if(boards && boards.columns && !boards.columns['column-1'].blockIds.length ) {
 			const col = boards.columns['column-1']
 			requestSetBlock({
 				...col, 

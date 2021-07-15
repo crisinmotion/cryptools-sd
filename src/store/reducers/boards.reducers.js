@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 		"column-1": {
 			id: "column-1",
 			title: "",
-			blockIds: ['block-1','block-2', 'block-3', 'block-4']
+			blockIds: []
 		}
 	},
 	columnOrder: ['column-1']
