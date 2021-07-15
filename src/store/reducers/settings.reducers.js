@@ -1,11 +1,13 @@
 import {  
   TOGGLEDRAWER,
-	SETACTIVEMENU
+	SETACTIVEMENU,
+	SET_CONFIGURATIONS
 } from "../constants/settings.constants";
 
 const INITIAL_STATE = {
  isDrawerOpen: true,
- activeMenu: 'cryptoblades'
+ activeMenu: 'cryptoblades',
+ userConfig: null
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
@@ -22,6 +24,12 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
         ...state,
         activeMenu: action.params
       };
+
+		case SET_CONFIGURATIONS: 
+			return {
+				...state,
+				userConfig: action.params
+			}
 
     default:
       return state;

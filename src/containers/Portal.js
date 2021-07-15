@@ -36,6 +36,7 @@ const Portal = props => {
 				blockIds: listAllBlocks
 			})
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	 },[])
 
 	const handleDragEnd = result => {
@@ -55,7 +56,7 @@ const Portal = props => {
 		const column = boards.columns[source.droppableId]
 		const newBlockIds = Array.from(column.blockIds)
 
-		let plucked = newBlockIds.splice(source.index, 1) [0]; // cut the element at index 'from'
+		let plucked = newBlockIds.splice(source.index, 1)[0]; // cut the element at index 'from'
     newBlockIds.splice(destination.index, 0, plucked); 
 		
 		const newColumn = {

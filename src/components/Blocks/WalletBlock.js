@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField, Typography } from "@material-ui/core";
+import { setConfigurations } from "../../store/actions/settings.actions";
 const useStyles = makeStyles((theme) => ({
 	root: {    	
 		width: '100%',
@@ -17,20 +19,38 @@ const useStyles = makeStyles((theme) => ({
 
 
 const WalletBlock = props => {
+	const {
+		settings,
+		updateConfigurations
+	} = props
 	const classes = useStyles();
 
 	const defaultConfig = {
 		walletAddress: null,
-		apiKey: null,
-		confirmed: false
+		apiKey: null,		
 	}
 
 	const [config, setConfig] = useState(defaultConfig)
+	useEffect(()=>{
+		if(settings && !settings.userConfig) {			
+			updateConfigurations(config)
+		}else{
+			setConfig(settings.userConfig)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[])
+
+	useEffect(() => {		
+		//if(config.walletAddress !== settings.userConfig.walletAddress && config.apiKey !== settings.userConfig.apiKey) {
+			updateConfigurations(config)
+		//}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [config, updateConfigurations ])
 
 
 
   return (
-		<div {...props} className={classes.root}>
+		<div className={classes.root}>
 			<Typography variant={'button'} display={'block'} gutterBottom>Configuration</Typography>
 			<TextField 
 				label={'Wallet Address'}
@@ -39,12 +59,12 @@ const WalletBlock = props => {
 				size={'small'}
 				className={classes.textFields}
 				error={!config.walletAddress}
-				helperText={!config.walletAddress ? 'Wallet Address is required for API calls on BSCScan.' : ''}
+				helperText={!config.walletAddress ? 'Wallet Address is required to pull your public records on BSCScan.' : ''}
 				onChange={(e)=> {
 					const value = e.target.value;
 					setConfig((prevState) => { return {...prevState, walletAddress: value}})
 				}}
-				value={config.walletAddress}
+				value={config && config.walletAddress ? config.walletAddress : ''}
 			/>
 			<TextField 
 				label={'API Key'}
@@ -57,19 +77,26 @@ const WalletBlock = props => {
 					const value = e.target.value;
 					setConfig((prevState) => { return {...prevState, apiKey: value}})
 				}}
-				value={config.apiKey}
+				value={config && config.apiKey ? config.apiKey : ''}
 			/>
-
-			<Button variant="contained" color="primary" disabled={!config.walletAddress && !config.apiKey || config.confirmed === true}
-				onClick={()=>{
-					setConfig((prevState) => {return {...prevState, confirmed: true}})
-				}}
-			>
-				Confirm
-			</Button>
-			
     </div>
   );
 };
 
-export default WalletBlock
+
+const mapStateToProps = state => {
+  return {
+		settings: state.settings 
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+		updateConfigurations: (params) => dispatch(setConfigurations(params))
+	}
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WalletBlock);
