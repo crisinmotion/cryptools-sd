@@ -5,19 +5,16 @@ import DefaultColumn from "../components/Columns/Default";
 import DefaultWrapper from "../components/Wrappers/Default";
 import { Grid } from "@material-ui/core";
 import { setBlocks } from "../store/actions/boards.actions";
-import LocalCurrencyValueBlock from "../components/Blocks/LocalCurrencyValueBlock";
-import BNBBalance from "../components/Blocks/BNBBalance";
-import BNBBalancePeso from "../components/Blocks/BNBBalancePeso";
-import TotalTransactions from "../components/Blocks/TotalTransactions";
 import WalletBlock from "../components/Blocks/WalletBlock";
+import DefaultColoredBlock from "../components/Blocks/DefaultColoredBlock";
 
 const BLOCK_OBJECT = {
 	blocks: {
-		'block-1': {id: 'block-1', content: <LocalCurrencyValueBlock/>},
-		'block-2': {id: 'block-2', content: <BNBBalance/>},
-		'block-3': {id: 'block-3', content: <BNBBalancePeso/>},
-		'block-4': {id: 'block-4', content: <TotalTransactions/>},
-		'block-5': {id: 'block-5', content: <WalletBlock/>},
+		'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={'₱ 269.00'} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
+		'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={'0.033'} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
+		'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={'₱ 628.25'} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
+		'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={'BNB 0.8'} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+		'WalletConfig': {id: 'WalletConfig', content: <WalletBlock/>},		
 	},		 
 }
 

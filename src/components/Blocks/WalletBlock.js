@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import { setConfigurations } from "../../store/actions/settings.actions";
 const useStyles = makeStyles((theme) => ({
 	root: {    	
@@ -41,9 +41,9 @@ const WalletBlock = props => {
 	},[])
 
 	useEffect(() => {		
-		//if(config.walletAddress !== settings.userConfig.walletAddress && config.apiKey !== settings.userConfig.apiKey) {
-			updateConfigurations(config)
-		//}
+		
+		updateConfigurations(config)
+		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [config, updateConfigurations ])
 
