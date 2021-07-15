@@ -21,12 +21,17 @@ const Portal = props => {
 			
 		const BLOCK_OBJECT = {
 			blocks: {
+				'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} -2,238.00`} color={'#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}}/>},
+				'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in Peso'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 3,695.00`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
 				'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 269.00`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
 				'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={'0.033'} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
 				'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 628.25`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
 				'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={'BNB 0.8'} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+				'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 2,245.75`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+				'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} -3,550.75`} color={'#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}}/>},
+				'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} 7,245.75`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}}/>},
 				'ConfigBlock': {id: 'ConfigBlock', content: <ConfigBlock/>},
-				'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#D5A6BD', backgroundColor: '#D9D2E9'}}/>},
+				'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
 				'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in PHP'} currency={'PHP'} currencyId={'php'} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}}/>}
 			},		 
 		}
