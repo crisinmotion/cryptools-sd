@@ -35,7 +35,6 @@ const InputBlock = props => {
 		title,
 		updateUserCurrencies,
 		currency,
-		currencyId,
 		style,
 		color
 	} = props
@@ -47,11 +46,9 @@ const InputBlock = props => {
 	useEffect(()=>{
 		if(settings && !settings.userCurrencies) {
 			if(config.length === 0 && config[currency]) {
-				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})
-				console.log('1')
+				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})				
 			}else{
-				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})
-				console.log('2')
+				setConfig((prevState) => {return {...prevState, [currency]: { value: '' }}})				
 			}
 			updateUserCurrencies(config)			
 		}else{

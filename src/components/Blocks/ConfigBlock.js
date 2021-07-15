@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField, Typography } from "@material-ui/core";
@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	formControl: {    
     minWidth: 120,
-		width: '100%'
+		width: '100%',
+		marginBottom: theme.spacing(2)
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -36,6 +37,7 @@ const ConfigBlock = props => {
 		walletAddress: null,
 		apiKey: null,
 		localCurrency: 'php',
+		farmingCurrency: null,
 		capitalCurrency: null
 	}
 
@@ -55,8 +57,6 @@ const ConfigBlock = props => {
 		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [config, updateConfigurations ])
-
-	console.log(settings.userCurrencies)
 
   return (
 		<div className={classes.root}>
@@ -103,31 +103,52 @@ const ConfigBlock = props => {
 				placeholder={'PHP'}
 			/>
 			{Object.keys(settings.userCurrencies).length > 0 && 
-			<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>
-        <InputLabel id="capital-currency-selector-label">Choose Currency for Capital</InputLabel>
-        <Select
-          labelId="capital-currency-selector-label"
-          id="capital-currency-selector"
-          value={settings.userConfig.capitalCurrency || ''}
-          onChange={(e)=> {
-						const value = e.target.value;
-						setConfig((prevState) => { return {...prevState, capitalCurrency: value}})
-					}}
-          className={classes.selectEmpty}
-        >
-					{ 
-						Object.keys(settings.userCurrencies).map((currency) => {
-
-							console.log(currency)
-							return (
-								<MenuItem value={currency} key={currency}>{currency}</MenuItem>
-							)
-						})
-
-					}
-
-        </Select>        
-      </FormControl>}
+			<Fragment>
+				<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>
+								<InputLabel shrink id="capital-currency-selector-label">Currency Used for Capital</InputLabel>
+								<Select
+									labelId="capital-currency-selector-label"
+									id="capital-currency-selector"
+									value={settings.userConfig.capitalCurrency || ''}
+									onChange={(e)=> {
+							const value = e.target.value;
+							setConfig((prevState) => { return {...prevState, capitalCurrency: value}})
+						}}
+									className={classes.selectEmpty}
+								>
+						{
+							Object.keys(settings.userCurrencies).map((currency) => {
+								return (
+									<MenuItem value={currency} key={currency}>{currency}</MenuItem>
+								)
+							})
+						}
+				
+					</Select>        
+				</FormControl>
+				<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>
+					<InputLabel shrink id="farming-currency-selector-label">Currency You are Farming</InputLabel>
+					<Select
+						labelId="farming-currency-selector-label"
+						id="farming-currency-selector"
+						value={settings.userConfig.farmingCurrency || ''}
+						onChange={(e)=> {
+							const value = e.target.value;
+							setConfig((prevState) => { return {...prevState, farmingCurrency: value}})
+						}}
+						className={classes.selectEmpty}
+					>
+						{
+							Object.keys(settings.userCurrencies).map((currency) => {
+								return (
+									<MenuItem value={currency} key={currency}>{currency}</MenuItem>
+								)
+							})
+						}
+					</Select>        
+				</FormControl>
+			</Fragment>
+			}
     </div>
   );
 };
