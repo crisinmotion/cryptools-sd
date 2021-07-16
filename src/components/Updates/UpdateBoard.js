@@ -35,7 +35,8 @@ const UpdateBoard = (props) => {
 
 	useEffect(()=>{	
 		console.debug(settings, "SETTINGS")
-		if(settings === undefined || (settings && Object.keys(settings).length === 0) || (settings && settings.version !== updateSettings.version) ) {			
+		if(settings === undefined || (settings && Object.keys(settings).length === 0) || (settings && settings.version !== updateSettings.updateStatus.version) ) {	
+					
 			requestUpdateStatus(updateSettings)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
