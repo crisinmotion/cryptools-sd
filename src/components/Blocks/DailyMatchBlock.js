@@ -67,7 +67,7 @@ const MatchCounterBlock = props => {
 	const getFormattedDay = moment().format("MMM DD YYYY") ;
 	useEffect(()=>{
 				
-		if(settings && Object.keys(settings.todayMatches).length === 0)		{
+		if(settings && settings.todayMatches && Object.keys(settings.todayMatches).length === 0)		{
 			setConfig((prevState) => {return {...prevState, todayMatches: defaultMatch }})	
 		}else{
 			setConfig((prevState) => {return {...prevState, todayMatches: settings.todayMatches }})	
@@ -81,7 +81,7 @@ const MatchCounterBlock = props => {
 
 	useEffect(() => {
 		
-		if(config && Object.keys(config.todayMatches).length > 0) {
+		if(config && config.todayMatches && Object.keys(config.todayMatches).length > 0) {
 			 const params = {
 				 target: 'todaysMatches',
 				 todayMatches: config.todayMatches
@@ -115,7 +115,7 @@ const MatchCounterBlock = props => {
   return (
 		<div style={ style } className={classes.root}>
 			<Typography variant={'button'} display={'block'} gutterBottom>{title}</Typography>
-			{ Object.keys(config.todayMatches).length > 0 && settings && Object.keys(settings.todayMatches).length > 0 &&
+			{ config.todayMatches && Object.keys(config.todayMatches).length > 0 && settings && Object.keys(settings.todayMatches).length > 0 &&
 				<Grid container spacing={2}>
 					<Grid item xs={6}>
 						

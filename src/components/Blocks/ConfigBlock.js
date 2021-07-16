@@ -116,7 +116,7 @@ const ConfigBlock = props => {
 				value={config && config.localCurrency ? config.localCurrency : ''}
 				placeholder={'PHP'}
 			/>
-			{Object.keys(settings.userCurrencies).length > 0 && 
+			{settings.userCurrencies && Object.keys(settings.userCurrencies).length > 0 && 
 			<Fragment>
 				<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>
 								<InputLabel shrink id="capital-currency-selector-label">Currency Used for Capital</InputLabel>
@@ -131,7 +131,7 @@ const ConfigBlock = props => {
 									className={classes.selectEmpty}
 								>
 						{
-							Object.keys(settings.userCurrencies).map((currency) => {
+							settings.userCurrencies && Object.keys(settings.userCurrencies).map((currency) => {
 								return (
 									<MenuItem value={currency} key={currency}>{currency}</MenuItem>
 								)
@@ -153,7 +153,7 @@ const ConfigBlock = props => {
 						className={classes.selectEmpty}
 					>
 						{
-							Object.keys(settings.userCurrencies).map((currency) => {
+							settings.userCurrencies && Object.keys(settings.userCurrencies).map((currency) => {
 								return (
 									<MenuItem value={currency} key={currency}>{currency}</MenuItem>
 								)
