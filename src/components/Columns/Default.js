@@ -27,7 +27,7 @@ const DefaultColumn = props => {
 							ref={provided.innerRef}
 							{...provided.droppableProps}
 						>
-							{props.blocks.map((block, index) => <DefaultBlock key={block.id} block={block} index={index} />)}
+							{props.blocks && props.blocks.map((block, index) => <DefaultBlock key={(block && block.id) || index} block={block} index={index} />)}
 							{provided.placeholder}
 						</div>
 					)

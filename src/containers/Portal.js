@@ -115,7 +115,7 @@ const Portal = props => {
 				
 			BLOCK_OBJECT = {
 				blocks: {
-					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'}/>},
+					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}}/>},					
 					'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}}/>},
 					'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in Peso'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
 					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
@@ -133,10 +133,28 @@ const Portal = props => {
 		
 
 		useEffect(()=>{
-			
+			const col = boards.columns['column-1']
 			const listAllBlocks = Object.keys(BLOCK_OBJECT.blocks);
-			if(boards && boards.columns && !boards.columns['column-1'].blockIds.length ) {
-				const col = boards.columns['column-1']
+			
+			if(boards && boards.columns) {
+				let boardBucket = []
+				Object.keys(boards.columns).map((col) => { boardBucket =  [...boardBucket,...boards.columns[col].blockIds]; return false})
+				if(boardBucket.length !== listAllBlocks.length) {
+					Object.keys(boards.columns).map((itemcol) => { 
+						requestSetBlock({
+							...col,
+							id:itemcol, 
+							blockIds: []
+						})
+						return false
+					})
+					requestSetBlock({
+						...col, 
+						blockIds: listAllBlocks
+					})
+				}
+			}
+			if(boards && boards.columns && !boards.columns['column-1'].blockIds.length ) {				
 				requestSetBlock({
 					...col, 
 					blockIds: listAllBlocks
@@ -217,7 +235,7 @@ const Portal = props => {
 				{
 					boards && boards.columnOrder && boards.columnOrder.map((columnId) => {
 						const column = boards.columns[columnId]
-						const blocks = column.blockIds.map(blockId => BLOCK_OBJECT.blocks[blockId])
+						const blocks = column.blockIds.map(blockId => BLOCK_OBJECT.blocks[blockId])						
 						return <Grid item xs={12} md={6} lg={4} key={column.id}><DefaultColumn column={column} blocks={blocks}/></Grid>
 					})
 				}

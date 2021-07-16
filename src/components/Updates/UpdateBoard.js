@@ -25,7 +25,7 @@ const UpdateBoard = (props) => {
 					"<strong>Daily Match Tracker</strong> — You can now easily track how much matches you still left for the day (28 max daily). See how many matches you won and lost, the remaining matches and you can keep tabs of your per match earnings.",
 					"<strong>Bugfixes and Chores</strong>"
 				],
-				warning: "This update may break your saved data, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",
+				warning: "This update may break your saved data or reset your board positions to default, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",
 				footer: "Enjoy! Feel free to send me your suggestions here at <strong>steeldemon026@gmail.com</strong>"
 			} 
 		}
