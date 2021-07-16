@@ -2,15 +2,18 @@ import {
   TOGGLEDRAWER,
 	SETACTIVEMENU,
 	SET_CONFIGURATIONS,
-	SET_USER_CURRENCIES
+	SET_USER_CURRENCIES,
+	SET_USER_MATCHES
 } from "../constants/settings.constants";
 
 const INITIAL_STATE = {
- isDrawerOpen: true,
+ appVersion: 'v1.0-beta.01',
+ isDrawerOpen: false,
  activeMenu: 'cryptoblades',
  userConfig: null,
- userCurrencies: {},
- appVersion: 'v1.0-beta.01'
+ userCurrencies: {}, 
+ userMatches: {},
+ todayMatches: {}
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
@@ -41,6 +44,24 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
 					...action.params
 				}
 			}
+		case SET_USER_MATCHES :		
+				if(action.params.target === 'userMatches') {
+					return {
+						...state,
+						userMatches: {
+							...state.userMatches,
+							...action.params.userMatches
+						}
+					}		
+				}else{
+					return {
+						...state,
+						todayMatches: {
+							...state.todayMatches,
+							...action.params.todayMatches
+						}
+					}
+				}
 
 
     default:

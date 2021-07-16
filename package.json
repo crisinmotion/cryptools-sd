@@ -14,6 +14,7 @@
     "classnames": "^2.3.1",
     "gh-pages": "^3.2.3",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "numeral": "^1.1.1",
     "persist": "^0.2.7",
     "react": "^17.0.2",
