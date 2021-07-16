@@ -3,7 +3,8 @@ import {
 	SETACTIVEMENU,
 	SET_CONFIGURATIONS,
 	SET_USER_CURRENCIES,
-	SET_USER_MATCHES
+	SET_USER_MATCHES,
+	SET_UPDATE_STATUS
 } from "../constants/settings.constants";
 
 export const toggleDrawer = (params) => {
@@ -37,6 +38,12 @@ export const setUserCurrencies = (params) => {
 export const setUserMatches = (params) => {
   return {
     type: SET_USER_MATCHES,
+    params
+  };
+}
+export const setUpdateStatus = (params) => {
+  return {
+    type: SET_UPDATE_STATUS,
     params
   };
 }

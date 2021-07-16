@@ -3,17 +3,20 @@ import {
 	SETACTIVEMENU,
 	SET_CONFIGURATIONS,
 	SET_USER_CURRENCIES,
-	SET_USER_MATCHES
+	SET_USER_MATCHES,
+	SET_UPDATE_STATUS
 } from "../constants/settings.constants";
 
-const INITIAL_STATE = {
- appVersion: 'v1.0-beta.01',
+const INITIAL_STATE = { 
  isDrawerOpen: false,
  activeMenu: 'cryptoblades',
  userConfig: null,
  userCurrencies: {}, 
  userMatches: {},
- todayMatches: {}
+ todayMatches: {},
+ updateStatus: {
+	 
+ }
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
@@ -44,8 +47,15 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
 					...action.params
 				}
 			}
-		case SET_USER_MATCHES :		
-		console.log(action, 'SAVE MATCH')
+		case SET_UPDATE_STATUS :
+			return {
+				...state,
+				updateStatus: {
+					...state.updateStatus,
+					...action.params
+				}
+			}
+		case SET_USER_MATCHES :				
 				if(action.params.target === 'userMatches') {
 					return {
 						...state,

@@ -9,8 +9,10 @@ import { connect } from "react-redux";
 
 import {
   toggleDrawer,
-	setActiveMenu
+	setActiveMenu,
+	setUpdateStatus
 } from "../store/actions"
+import UpdateBoard from "../components/Updates/UpdateBoard";
 
 const drawerWidth = 280;
 
@@ -39,7 +41,8 @@ function MainLayout(props) {
     children,
     settings,
     updateDrawerState,
-		updateActiveMenu
+		updateActiveMenu,
+		requestUpdateStatus
   } = props;
 
   const [open, setOpen] = useState(settings.isDrawerOpen);
@@ -79,6 +82,7 @@ function MainLayout(props) {
             </div>
           </main>
       </div>
+			<UpdateBoard settings={settings.updateStatus} requestUpdateStatus={requestUpdateStatus}/>
     </Fragment>
   )
 }
@@ -92,10 +96,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDrawerState: (params) => toggleDrawer(params),
-			updateActiveMenu: params => setActiveMenu(params)
+      updateDrawerState: (params) => dispatch(toggleDrawer(params)),
+			updateActiveMenu: params => dispatch(setActiveMenu(params)),
+			requestUpdateStatus: params => dispatch(setUpdateStatus(params))
     },
-    dispatch
+		dispatch
   );
 };
 
