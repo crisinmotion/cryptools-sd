@@ -29,7 +29,7 @@ const UpdateBoard = (props) => {
 				footer: "Enjoy! Feel free to send me your suggestions here at <strong>steeldemon026@gmail.com</strong>"
 			} 
 		}
-		if((!Object.keys(settings)) || (settings && settings.version !== updateSettings.version) ) {			
+		if((settings && !Object.keys(settings)) || (settings && settings.version !== updateSettings.version) ) {			
 			requestUpdateStatus(updateSettings)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
