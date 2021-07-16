@@ -4,11 +4,10 @@ import clsx from 'clsx';
 import { connect } from "react-redux";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Drawer, AppBar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import Logo from '../../assets/images/SteelDemonLogo.png';
 import CryptoBladesLogo from '../../assets/icons/cryptoblades.png';
+import { MenuOpenRounded } from '@material-ui/icons';
 
 const drawerWidth = 240; 
 
@@ -173,16 +172,14 @@ const Sidebar = props => {
 							edge="start"
 							disableRipple		
 							disableFocusRipple			
-							className={clsx(classes.menuButton, {
-								// [classes.hide]: open,
-							})}
+							className={clsx(classes.menuButton)}
 						>
 							<img src={Logo} className={classes.logo} alt={'Cryptools'}/>
 							<Typography variant={'h6'} color={'primary'} className={classes.appName} style={iconsTransition}>Cryptools</Typography>
 						</IconButton>      					
 						
-						<IconButton onClick={()=> handleToggleDrawer(!open)} color={'secondary'}  style={iconsTransition}>
-							{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+						<IconButton onClick={()=> handleToggleDrawer(!open)} color={'secondary'}  style={{...iconsTransition, padding: theme.spacing(1), borderColor: theme.palette.secondary, borderWidth: 1, borderStyle: 'solid'}} variant={'outline'}>
+							{theme.direction === 'rtl' ? <MenuOpenRounded/> : <MenuOpenRounded/>}
 						</IconButton>
         </div>
         <Divider />
