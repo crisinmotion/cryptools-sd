@@ -45,6 +45,7 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
 				}
 			}
 		case SET_USER_MATCHES :		
+		console.log(action, 'SAVE MATCH')
 				if(action.params.target === 'userMatches') {
 					return {
 						...state,
