@@ -14,9 +14,6 @@ const INITIAL_STATE = {
  userCurrencies: {}, 
  userMatches: {},
  todayMatches: {},
- updateStatus: {
-	 
- }
 };
 
 const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
@@ -47,13 +44,10 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
 					...action.params
 				}
 			}
-		case SET_UPDATE_STATUS :
+		case SET_UPDATE_STATUS :			
 			return {
 				...state,
-				updateStatus: {
-					...state.updateStatus,
-					...action.params
-				}
+				...action.params				
 			}
 		case SET_USER_MATCHES :				
 				if(action.params.target === 'userMatches') {

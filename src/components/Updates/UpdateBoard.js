@@ -16,21 +16,24 @@ const UpdateBoard = (props) => {
 
 	const appVersion  = 'v1.0-beta.2'
 	const updateSettings = {
-		version: appVersion,
-		updateNotice: true,
-		updateContent: {
-			title: "What's new in version "+ appVersion,
-			content: [
-				"<strong>Daily Match Tracker</strong> — You can now easily track how much matches you still left for the day (28 max daily). See how many matches you won and lost, the remaining matches and you can keep tabs of your per match earnings.",
-				"<strong>Bugfixes and Chores</strong>"
-			],
-			warning: "This update may break your saved data or reset your board positions to default, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",
-			footer: "Enjoy! Feel free to send me your suggestions here at <strong>steeldemon026@gmail.com</strong>"
-		} 
+		updateStatus: {
+			version: appVersion,
+			updateNotice: true,
+			updateContent: {
+				title: "What's new in version "+ appVersion,
+				content: [
+					"<strong>Daily Match Tracker</strong> — You can now easily track how much matches you still left for the day (28 max daily). See how many matches you won and lost, the remaining matches and you can keep tabs of your per match earnings.",
+					"<strong>Bugfixes and Chores</strong>"
+				],
+				warning: "This update may break your saved data or reset your board positions to default, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",
+				footer: "Enjoy! Feel free to send me your suggestions here at <strong>steeldemon026@gmail.com</strong>"
+			} 
+		}
 	}
 
 	useEffect(()=>{	
-		if((settings && !Object.keys(settings)) || (settings && settings.version !== updateSettings.version) ) {			
+		console.debug(settings, "SETTINGS")
+		if(settings === undefined || (settings && Object.keys(settings).length === 0) || (settings && settings.version !== updateSettings.version) ) {			
 			requestUpdateStatus(updateSettings)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
