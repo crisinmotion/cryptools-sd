@@ -60,9 +60,7 @@ const InputBlock = props => {
 
 	useEffect(() => {		
 		
-		updateUserCurrencies(config)
-		console.log(config)
-		
+		updateUserCurrencies(config)		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [config, updateUserCurrencies ])
 
