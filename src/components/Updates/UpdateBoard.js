@@ -8,8 +8,10 @@ const UpdateBoard = (props) => {
 
   const handleClose = () => {
 		let params = {
-			...settings,
-			updateNotice: false
+			updateStatus: {
+				...settings,
+				updateNotice: false
+			}
 		}		
     requestUpdateStatus(params);		
   };
