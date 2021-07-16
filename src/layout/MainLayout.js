@@ -82,7 +82,7 @@ function MainLayout(props) {
             </div>
           </main>
       </div>
-			<UpdateBoard settings={settings.updateStatus} requestUpdateStatus={requestUpdateStatus}/>
+			<UpdateBoard settings={settings && settings.updateStatus} requestUpdateStatus={requestUpdateStatus}/>
     </Fragment>
   )
 }
