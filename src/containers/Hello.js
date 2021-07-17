@@ -3,13 +3,6 @@ import { connect } from "react-redux";
 import logo from '../assets/images/SteelDemonLogo.png';
 
 const Hello = props => {
-  function gotToPortal(){
-    props.history.push('/portal')
-  }
-
-  function routeChange(){
-    gotToPortal();
-  }
 
   return (
     <div
