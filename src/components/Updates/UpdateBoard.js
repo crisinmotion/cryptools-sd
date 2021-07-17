@@ -16,7 +16,7 @@ const UpdateBoard = (props) => {
     requestUpdateStatus(params);		
   };
 
-	const appVersion  = 'v1.0-beta.2'
+	const appVersion  = 'v1.0-beta.3'
 	const updateSettings = {
 		updateStatus: {
 			version: appVersion,
@@ -24,7 +24,9 @@ const UpdateBoard = (props) => {
 			updateContent: {
 				title: "What's new in version "+ appVersion,
 				content: [
-					"<strong>Daily Match Tracker</strong> — You can now easily track how much matches you still left for the day (28 max daily). See how many matches you won and lost, the remaining matches and you can keep tabs of your per match earnings.",
+					"<strong>Multi-currency option for exchange rates conversion</strong> — Converted values in local currencies are now more flexible to choose other currencies other than PHP (Default on first use).",
+					"<strong>Capital Currency updated</strong> — Currency of the Capital Investment input will now use the selected Local Currency. Defaults to PHP on first use.",
+					"<strong>Daily Match Tracker</strong> — Added local currency conversion of total gains for the day.",					
 					"<strong>Bugfixes and Chores</strong>"
 				],
 				warning: "This update may break your saved data or reset your board positions to default, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",
@@ -34,7 +36,7 @@ const UpdateBoard = (props) => {
 	}
 
 	useEffect(()=>{	
-		console.debug(settings, "SETTINGS")
+		console.debug('APP Version:', updateSettings.updateStatus.version)
 		if(settings === undefined || (settings && Object.keys(settings).length === 0) || (settings && settings.version !== updateSettings.updateStatus.version) ) {	
 					
 			requestUpdateStatus(updateSettings)
