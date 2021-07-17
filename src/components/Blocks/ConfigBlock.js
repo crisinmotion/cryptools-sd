@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
 const ConfigBlock = props => {
 	const {
 		settings,
-		updateConfigurations
+		updateConfigurations,
+		supportedCurrencies
 	} = props
 	const classes = useStyles();
 
@@ -101,21 +102,31 @@ const ConfigBlock = props => {
 					setConfig((prevState) => { return {...prevState, apiKey: value}})
 				}}
 				value={config && config.apiKey ? config.apiKey : ''}
-			/>			
-			<TextField 
-				label={'Local Currency ID'}
-				variant={'outlined'}				
-				size={'small'}
-				className={classes.textFields}
-				error={!config.localCurrency}
-				helperText={!config.localCurrency ? 'Currency for Localized currency display' : ''}
-				onChange={(e)=> {
-					const value = e.target.value;
-					setConfig((prevState) => { return {...prevState, localCurrency: value}})
-				}}
-				value={config && config.localCurrency ? config.localCurrency : ''}
-				placeholder={'PHP'}
 			/>
+			{supportedCurrencies && Object.keys(supportedCurrencies).length > 0 &&
+				<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>
+					<InputLabel shrink id="capital-currency-selector-label">Local Currency</InputLabel>
+					<Select
+						labelId="local-currency-selector-label"
+						id="local-currency-selector"
+						value={settings && settings.userConfig && settings.userConfig.localCurrency || 'USD'}
+						onChange={(e)=> {
+							const value = e.target.value;
+							setConfig((prevState) => { return {...prevState, localCurrency: value}})
+						}}
+						className={classes.selectEmpty}
+					>
+						{
+							Object.keys(supportedCurrencies).map((i) => {
+								return (
+									<MenuItem value={supportedCurrencies[i].toUpperCase()} key={i}>{supportedCurrencies[i].toUpperCase()}</MenuItem>
+								)
+							})
+						}
+				
+					</Select>        
+				</FormControl>
+			}
 			{settings.userCurrencies && Object.keys(settings.userCurrencies).length > 0 && 
 			<Fragment>
 				<FormControl className={classes.formControl} variant={'outlined'} size={'small'}>

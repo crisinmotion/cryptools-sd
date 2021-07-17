@@ -26,15 +26,10 @@ const Portal = props => {
 	 } = props
 
 	 const DEFAULT_USERDATA = {
-			currencies: {
-
-			},
-			userWalletTransactions: {
-
-			},
-			userBinanceBalance: {
-
-			}
+			currencies: {},
+			userWalletTransactions: {},
+			userBinanceBalance: {},
+			supportedCurrencies: []
 
 		}
 
@@ -43,21 +38,25 @@ const Portal = props => {
 
 		useEffect(() => {
 			if(!isLoading && userConfig && userConfig.walletAddress && userConfig.apiKey && userConfig.farmingCurrency && userConfig.localCurrency && userCurrencies && Object.keys(userCurrencies).length > 0) {
-				let CURRENCIES_DATA = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency='+ (userCurrencies[userConfig.localCurrency] && userCurrencies[userConfig.localCurrency].id) +'&ids=binancecoin,' + (userCurrencies[userConfig.farmingCurrency] && userCurrencies[userConfig.farmingCurrency].id) + ''				
+				let selectedCurrency = userConfig.localCurrency || 'PHP'
+				let CURRENCIES_DATA = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency='+ selectedCurrency +'&ids=binancecoin,' + (userCurrencies[userConfig.farmingCurrency] && userCurrencies[userConfig.farmingCurrency].id) + ''				
 				let BINANCE_WALLET_DATA = 'https://api.bscscan.com/api?module=account&action=txlist&address='+ userConfig.walletAddress +'&startblock=1&endblock=99999999&sort=desc&apikey=' + userConfig.apiKey + ''
-				let BINANCE_WALLET_BALANCE = 'https://api.bscscan.com/api?module=account&action=balance&address='+ userConfig.walletAddress +'&tag=latest&apikey=' + userConfig.apiKey + ''	
+				let BINANCE_WALLET_BALANCE = 'https://api.bscscan.com/api?module=account&action=balance&address='+ userConfig.walletAddress +'&tag=latest&apikey=' + userConfig.apiKey + ''
+				let SUPPORTED_CURRENCIES = 'https://api.coingecko.com/api/v3/simple/supported_vs_currencies'
 				
 				const req_currency_data = axios.get(CURRENCIES_DATA)
 				const req_wallet_data = axios.get(BINANCE_WALLET_DATA)
 				const req_balance_data = axios.get(BINANCE_WALLET_BALANCE)
+				const req_supported_currencies = axios.get(SUPPORTED_CURRENCIES)
 				setIsLoading(true)
 				axios
-					.all([req_currency_data, req_wallet_data, req_balance_data])
+					.all([req_currency_data, req_wallet_data, req_balance_data, req_supported_currencies])
 					.then(
 						axios.spread((...responses) => {
 							const respCurrencyData = responses[0];
 							const respWalletData = responses[1];
 							const respBalanceData = responses[2];
+							const respSupportedCurrencies = responses[3]
 
 							// use/access the results
 							setUserData((prevState) => {return {
@@ -69,6 +68,9 @@ const Portal = props => {
 								},
 								userBinanceBalance: {
 									...respBalanceData.data
+								},
+								supportedCurrencies: {
+									...respSupportedCurrencies.data
 								}
 							}})
 							setIsLoading(false)
@@ -115,22 +117,23 @@ const Portal = props => {
 			}
 
 			// console.log(userConfig, 'USER CONFIG')
+			const localCurrency = userConfig && userConfig.localCurrency || 'PHP'
 			BLOCK_OBJECT = {
 				blocks: {
 					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'} exchangeRate={currencyExchangeValue || 0} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}}/>},					
 					//?Under development 'MatchHistory' : {id: 'MatchHistory', content: <MatchHistory title={'Match History'} dataSet={userMatches} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}}/>},					
 					'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}}/>},
-					'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in Peso'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
-					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
+					'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
+					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
 					'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={blockData.userBNBBalance} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}}/>},
-					'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.userBNBBalanceExchange}`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
+					'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.userBNBBalanceExchange}`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}}/>},
 					'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
-					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
+					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}}/>},
 					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}}/>},
-					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}}/>},
-					'ConfigBlock': {id: 'ConfigBlock', content: <ConfigBlock/>},
+					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}}/>},
+					'ConfigBlock': {id: 'ConfigBlock', content: <ConfigBlock supportedCurrencies={userData && userData.supportedCurrencies}/>},
 					'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
-					'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in PHP'} currency={'PHP'} currencyId={'php'} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}}/>}
+					'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in ' + localCurrency} currency={localCurrency} currencyId={localCurrency} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}}/>}
 				},		 
 			}
 		
