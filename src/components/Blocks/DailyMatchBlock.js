@@ -75,9 +75,6 @@ const MatchCounterBlock = props => {
 		}else{
 			setConfig((prevState) => {return {...prevState, todayMatches: settings.todayMatches }})	
 		}
-
-		console.log(exchangeRate, 'Rate')
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
 
@@ -86,7 +83,7 @@ const MatchCounterBlock = props => {
 			setConvertedRate(exchangeRate * ((settings.todayMatches && settings.todayMatches.rewardsGained) || 0))
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [exchangeRate])
+	}, [exchangeRate, settings.todayMatches])
 
 	const [remainingMatches, setRemainingMatches] = useState(0)
 	const [matchReward, setMatchReward] = useState(0)
