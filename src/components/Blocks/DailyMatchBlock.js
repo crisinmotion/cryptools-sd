@@ -76,12 +76,14 @@ const MatchCounterBlock = props => {
 			setConfig((prevState) => {return {...prevState, todayMatches: settings.todayMatches }})	
 		}
 
+		console.log(exchangeRate, 'Rate')
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
 
 	useEffect(() => {
-		if(settings && settings.userConfig && settings.userConfig.localCurrency) {
-			setConvertedRate(exchangeRate * ((config.todayMatches && config.todayMatches.rewardsGained) || 0))
+		if(settings && settings.todayMatches && exchangeRate) {
+			setConvertedRate(exchangeRate * ((settings.todayMatches && settings.todayMatches.rewardsGained) || 0))
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [exchangeRate])
