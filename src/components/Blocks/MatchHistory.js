@@ -6,6 +6,7 @@ import EventIcon from '@material-ui/icons/Event';
 import { EmojiEvents, MonetizationOn, SentimentDissatisfied, SportsEsports } from "@material-ui/icons";
 import moment from "moment";
 import { Alert } from '@material-ui/lab';
+import { ErrorBoundary } from "react-error-boundary";
 
 const useStyles = makeStyles((theme) => ({
 	root: {    	
@@ -27,6 +28,15 @@ const useStyles = makeStyles((theme) => ({
 	}
 }))
 
+const errorHandler = (error, info) => {
+	if(error) {
+		console.debug(error)
+	}else{
+		console.debug(info)
+	}
+}
+
+
 
 const MatchHistory = props => {
 	const {
@@ -47,19 +57,21 @@ const MatchHistory = props => {
 	const historyDays = dataSet && Object.keys(dataSet).length > 0 && Object.keys(dataSet).map((key, i)=> { return {...dataSet[key], id: dataSet[key].dateTime, dateTime: moment(dataSet[key].dateTime).format("MM/DD/YYYY")} })
 	
   return (
-		<div style={ style } className={classes.root}>
-			<Typography variant={'button'} display={'block'} gutterBottom>{title}</Typography>
-			
-			{ historyDays && 
-				<div style={{ height: 364, width: '100%'}}>
-					<DataGrid rows={historyDays} columns={columns} pageSize={7} disableColumnMenu={true} align={'center'}/>
-				</div>
-			}
-			{ !historyDays &&
-					<Alert severity="info">No recorded matches yet. Use the Daily Match Block and save new match record.</Alert>
+		<ErrorBoundary onError={errorHandler}>
+			<div style={ style } className={classes.root}>
+				<Typography variant={'button'} display={'block'} gutterBottom>{title}</Typography>
+				
+				{ historyDays && 
+					<div style={{ height: 364, width: '100%'}}>
+						<DataGrid rows={historyDays} columns={columns} pageSize={7} disableColumnMenu={true} align={'center'}/>
+					</div>
+				}
+				{ !historyDays &&
+						<Alert severity="info">No recorded matches yet. Use the Daily Match Block and save new match record.</Alert>
 
-			}
-    </div>
+				}
+			</div>
+		</ErrorBoundary>
   );
 };
 
