@@ -16,7 +16,7 @@ const UpdateBoard = (props) => {
     requestUpdateStatus(params);		
   };
 
-	const appVersion  = 'v1.0-beta.3'
+	const appVersion  = 'v1.0-beta.4'
 	const updateSettings = {
 		updateStatus: {
 			version: appVersion,
@@ -24,9 +24,7 @@ const UpdateBoard = (props) => {
 			updateContent: {
 				title: "What's new in version "+ appVersion,
 				content: [
-					"<strong>Multi-currency option for exchange rates conversion</strong> — Converted values in local currencies are now more flexible to choose other currencies other than PHP (Default on first use).",
-					"<strong>Capital Currency updated</strong> — Currency of the Capital Investment input will now use the selected Local Currency. Defaults to PHP on first use.",
-					"<strong>Daily Match Tracker</strong> — Added local currency conversion of total gains for the day.",					
+					"<strong>Match History Block</strong> — Past saved matches will be visible and listed on this block for review purposes. Only the present day record is editable via Daily Matches block.",
 					"<strong>Bugfixes and Chores</strong>"
 				],
 				warning: "This update may break your saved data or reset your board positions to default, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",

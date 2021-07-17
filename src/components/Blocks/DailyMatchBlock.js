@@ -226,7 +226,7 @@ const MatchCounterBlock = props => {
         <DialogTitle id="confirm-save">{"Yey! You are done for the day!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="confirm-save-match">
-            {"This will save your today's match and you can view it later in your match history (Coming Soon Feature). You can still edit and save multiple times today. Past records will no longer be editable to keep the integrity of the matches. "}
+            {"This will save your today's match and you can view it later in your match history block. You can still edit and save multiple times today. Past records will no longer be editable to keep the integrity of the matches. "}
           </DialogContentText>
         </DialogContent>
         <DialogActions style={{display:'flex', justifyContent: 'space-between', padding: theme.spacing(2)}} >
