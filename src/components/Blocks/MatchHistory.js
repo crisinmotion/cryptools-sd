@@ -44,11 +44,7 @@ const MatchHistory = props => {
 		{ field: 'rewardsGained', headerName: <IconButton><MonetizationOn fontSize={'small'} style={{color: '#01937C'}}/></IconButton>, type: 'number', cellClassName: classes.dataRows },		
 	];
 
-	console.log(Object.keys(dataSet), 'DATASET')
-
 	const historyDays = dataSet && Object.keys(dataSet).length > 0 && Object.keys(dataSet).map((key, i)=> { return {...dataSet[key], id: dataSet[key].dateTime, dateTime: moment(dataSet[key].dateTime).format("MM/DD/YYYY")} })
-
-	console.log(historyDays, 'HISTORY')
 	
   return (
 		<div style={ style } className={classes.root}>
