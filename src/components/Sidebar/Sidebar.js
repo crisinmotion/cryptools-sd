@@ -7,7 +7,7 @@ import { Drawer, AppBar, List, CssBaseline, Typography, Divider, IconButton, Lis
 
 import Logo from '../../assets/images/SteelDemonLogo.png';
 import CryptoBladesLogo from '../../assets/icons/cryptoblades.png';
-import { MenuOpenRounded } from '@material-ui/icons';
+import { InfoRounded, MenuOpenRounded } from '@material-ui/icons';
 
 const drawerWidth = 240; 
 
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+		overflowX: 'hidden'
   },
   drawerOpen: {
     width: drawerWidth,
@@ -90,7 +91,19 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.common.white,
 		'&:hover' :{			
 			backgroundColor: theme.palette.primary.main,
+		},
+		'& .MuiSvgIcon-colorPrimary' : {
+			color: '#ffffff !important'
 		}
+	},
+	version: {
+		alignSelf: 'flex-end',
+		position: 'absolute',
+		bottom: 0
+	},
+	menuList: {
+		position: 'relative',
+		height: '100%'
 	}
 }));
 
@@ -110,6 +123,14 @@ const MENU_ITEMS = [
 		icon: <ImageIcon params={{src: CryptoBladesLogo, alt: 'CB'}}/>,
 		menuName: 'cryptoblades'
 	},
+	{ 
+		id: 1,
+		text: 'About Cryptools',
+		slug: '/',
+		url: '/',
+		icon: <InfoRounded color={'primary'}/>,
+		menuName: 'about'
+	},
 ]
 
 const Sidebar = props => {
@@ -120,7 +141,8 @@ const Sidebar = props => {
 		open,
 		handleToggleDrawer,
 		activeMenu,
-		handleActiveMenu
+		handleActiveMenu,
+		appVersion
 	} = props
 
 	const iconsTransition = {
@@ -183,7 +205,7 @@ const Sidebar = props => {
 						</IconButton>
         </div>
         <Divider />
-        <List>
+        <List className={classes.menuList}>
           {MENU_ITEMS.map((item, index) => (
             <ListItem button key={item.id}
 							className={clsx({
@@ -197,6 +219,11 @@ const Sidebar = props => {
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
+					{appVersion && open &&
+						<ListItem key={appVersion} {...{className: classes.version}}>
+							<ListItemText primary={appVersion} />
+						</ListItem>
+					}
         </List>
         
       </Drawer>

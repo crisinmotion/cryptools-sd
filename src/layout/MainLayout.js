@@ -73,6 +73,7 @@ function MainLayout(props) {
           handleToggleDrawer={handleToggleDrawer}
 					handleActiveMenu={handleActiveMenu}
 					activeMenu={activeMenu}
+					appVersion={settings && settings.updateStatus && settings.updateStatus.version}
           {...props.children.props}
 				/>
           <main
