@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/cryptools-sd/static/js/main.d351c44e.chunk.js",
-    "main.js.map": "/cryptools-sd/static/js/main.d351c44e.chunk.js.map",
+    "main.js": "/cryptools-sd/static/js/main.70929af1.chunk.js",
+    "main.js.map": "/cryptools-sd/static/js/main.70929af1.chunk.js.map",
     "runtime-main.js": "/cryptools-sd/static/js/runtime-main.0291afd6.js",
     "runtime-main.js.map": "/cryptools-sd/static/js/runtime-main.0291afd6.js.map",
-    "static/js/2.163cc5ab.chunk.js": "/cryptools-sd/static/js/2.163cc5ab.chunk.js",
-    "static/js/2.163cc5ab.chunk.js.map": "/cryptools-sd/static/js/2.163cc5ab.chunk.js.map",
+    "static/js/2.15c6ef02.chunk.js": "/cryptools-sd/static/js/2.15c6ef02.chunk.js",
+    "static/js/2.15c6ef02.chunk.js.map": "/cryptools-sd/static/js/2.15c6ef02.chunk.js.map",
     "static/js/3.584202c8.chunk.js": "/cryptools-sd/static/js/3.584202c8.chunk.js",
     "static/js/3.584202c8.chunk.js.map": "/cryptools-sd/static/js/3.584202c8.chunk.js.map",
     "index.html": "/cryptools-sd/index.html",
-    "static/js/2.163cc5ab.chunk.js.LICENSE.txt": "/cryptools-sd/static/js/2.163cc5ab.chunk.js.LICENSE.txt",
+    "static/js/2.15c6ef02.chunk.js.LICENSE.txt": "/cryptools-sd/static/js/2.15c6ef02.chunk.js.LICENSE.txt",
     "static/media/SteelDemonLogo.346f9bfa.png": "/cryptools-sd/static/media/SteelDemonLogo.346f9bfa.png",
     "static/media/cryptoblades.0aadb6d1.png": "/cryptools-sd/static/media/cryptoblades.0aadb6d1.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0291afd6.js",
-    "static/js/2.163cc5ab.chunk.js",
-    "static/js/main.d351c44e.chunk.js"
+    "static/js/2.15c6ef02.chunk.js",
+    "static/js/main.70929af1.chunk.js"
   ]
 }
