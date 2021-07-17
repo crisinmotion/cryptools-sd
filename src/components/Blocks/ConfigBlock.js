@@ -109,7 +109,7 @@ const ConfigBlock = props => {
 					<Select
 						labelId="local-currency-selector-label"
 						id="local-currency-selector"
-						value={settings && settings.userConfig && settings.userConfig.localCurrency || 'USD'}
+						value={(settings && settings.userConfig && settings.userConfig.localCurrency) || 'USD'}
 						onChange={(e)=> {
 							const value = e.target.value;
 							setConfig((prevState) => { return {...prevState, localCurrency: value}})
