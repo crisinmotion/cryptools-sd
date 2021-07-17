@@ -12,6 +12,7 @@ import axios from 'axios';
 import numeral from 'numeral';
 import _ from 'lodash';
 import DailyMatchBlock from "../components/Blocks/DailyMatchBlock";
+//import MatchHistory from "../components/Blocks/MatchHistory";
 
 
 const Portal = props => {
@@ -20,7 +21,8 @@ const Portal = props => {
 		updateBlocks,
 		userConfig,
 		updateColumnBlocks,
-		userCurrencies
+		userCurrencies,
+		userMatches
 	 } = props
 
 	 const DEFAULT_USERDATA = {
@@ -112,10 +114,11 @@ const Portal = props => {
 				TotalInitialInvestmentPeso: numeral(TotalInitialInvestmentPeso || 0).format("0,0.00")
 			}
 
-				
+			// console.log(userConfig, 'USER CONFIG')
 			BLOCK_OBJECT = {
 				blocks: {
-					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}}/>},					
+					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'} exchangeRate={currencyExchangeValue || 0} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}}/>},					
+					//?Under development 'MatchHistory' : {id: 'MatchHistory', content: <MatchHistory title={'Match History'} dataSet={userMatches} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}}/>},					
 					'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}}/>},
 					'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in Peso'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}}/>},
 					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in PHP'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}}/>},
@@ -250,7 +253,8 @@ const mapStateToProps = state => {
   return {
 		boards: state.boards,
 		userConfig: state.settings.userConfig,
-		userCurrencies: state.settings.userCurrencies
+		userCurrencies: state.settings.userCurrencies,
+		userMatches: state.settings.userMatches
   };
 };
 

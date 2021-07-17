@@ -39,6 +39,7 @@ const MatchCounterBlock = props => {
 		title,		
 		style,
 		color,
+		exchangeRate,
 		updateUserMatches
 	} = props
 	const classes = useStyles();
@@ -64,7 +65,9 @@ const MatchCounterBlock = props => {
 
 	const [config, setConfig] = useState(defaultConfig)
 	const [confirmSave, setConfirmSave] = useState(false)
+	const [convertedRate, setConvertedRate] = useState(0)
 	const getFormattedDay = moment().format("MMM DD YYYY") ;
+	
 	useEffect(()=>{
 				
 		if(settings && settings.todayMatches && Object.keys(settings.todayMatches).length === 0)		{
@@ -75,6 +78,12 @@ const MatchCounterBlock = props => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
+
+	useEffect(() => {
+		if(settings && settings.userConfig && settings.userConfig.localCurrency) {
+			setConvertedRate(exchangeRate * ((config.todayMatches && config.todayMatches.rewardsGained) || 0))
+		}
+	}, [exchangeRate])
 
 	const [remainingMatches, setRemainingMatches] = useState(0)
 	const [matchReward, setMatchReward] = useState(0)
@@ -196,13 +205,14 @@ const MatchCounterBlock = props => {
 					</Grid>
 				</Grid>
 			}
-			<Container style={{display: 'flex', justifyContent: 'space-between', padding: 0}}>
+			<Container style={{display: 'flex', justifyContent: 'space-between', padding: 0, alignItems:'center'}}>
 				<Button variant={'contained'} disableElevation onClick={()=>{
 					setConfig((prevState) => {return {...prevState, todayMatches: defaultMatch }})	
 				}}>Reset</Button>
 				<div>
-					<Typography variant={'caption'}>Rewards Gained Today</Typography>
+					<Typography variant={'caption'}>{settings && settings.userConfig && settings.userConfig.farmingCurrency + ' '}Gained Today</Typography>
 					<Typography variant={'h4'}>{numeral((config.todayMatches && config.todayMatches.rewardsGained) || 0).format("0,0.0000")}</Typography>
+					{settings && settings.userConfig && <Typography variant={'caption'} component={'span'}>&#8776; {settings.userConfig.localCurrency} {numeral(convertedRate || 0).format("0,0.00")} <span style={{color: 'transparent'}}>l</span></Typography>}
 				</div>
 				<Button variant={'contained'} color={'primary'} disableElevation onClick={()=> setConfirmSave(!confirmSave)}><SaveRounded/></Button>
 			</Container>
