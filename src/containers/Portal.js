@@ -22,7 +22,7 @@ const Portal = props => {
 		userConfig,
 		updateColumnBlocks,
 		userCurrencies,
-		userMatches
+		// userMatches
 	 } = props
 
 	 const DEFAULT_USERDATA = {

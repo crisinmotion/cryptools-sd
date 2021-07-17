@@ -83,6 +83,7 @@ const MatchCounterBlock = props => {
 		if(settings && settings.userConfig && settings.userConfig.localCurrency) {
 			setConvertedRate(exchangeRate * ((config.todayMatches && config.todayMatches.rewardsGained) || 0))
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [exchangeRate])
 
 	const [remainingMatches, setRemainingMatches] = useState(0)
