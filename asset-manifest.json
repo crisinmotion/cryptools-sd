@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/cryptools-sd/static/js/main.474e252c.chunk.js",
-    "main.js.map": "/cryptools-sd/static/js/main.474e252c.chunk.js.map",
-    "runtime-main.js": "/cryptools-sd/static/js/runtime-main.0291afd6.js",
-    "runtime-main.js.map": "/cryptools-sd/static/js/runtime-main.0291afd6.js.map",
-    "static/js/2.c90c4811.chunk.js": "/cryptools-sd/static/js/2.c90c4811.chunk.js",
-    "static/js/2.c90c4811.chunk.js.map": "/cryptools-sd/static/js/2.c90c4811.chunk.js.map",
-    "static/js/3.584202c8.chunk.js": "/cryptools-sd/static/js/3.584202c8.chunk.js",
-    "static/js/3.584202c8.chunk.js.map": "/cryptools-sd/static/js/3.584202c8.chunk.js.map",
+    "main.js": "/cryptools-sd/static/js/main.ce96975d.chunk.js",
+    "main.js.map": "/cryptools-sd/static/js/main.ce96975d.chunk.js.map",
+    "runtime-main.js": "/cryptools-sd/static/js/runtime-main.57080e48.js",
+    "runtime-main.js.map": "/cryptools-sd/static/js/runtime-main.57080e48.js.map",
+    "static/js/2.8dbef292.chunk.js": "/cryptools-sd/static/js/2.8dbef292.chunk.js",
+    "static/js/2.8dbef292.chunk.js.map": "/cryptools-sd/static/js/2.8dbef292.chunk.js.map",
+    "static/js/3.a528eefb.chunk.js": "/cryptools-sd/static/js/3.a528eefb.chunk.js",
+    "static/js/3.a528eefb.chunk.js.map": "/cryptools-sd/static/js/3.a528eefb.chunk.js.map",
     "index.html": "/cryptools-sd/index.html",
-    "static/js/2.c90c4811.chunk.js.LICENSE.txt": "/cryptools-sd/static/js/2.c90c4811.chunk.js.LICENSE.txt",
+    "static/js/2.8dbef292.chunk.js.LICENSE.txt": "/cryptools-sd/static/js/2.8dbef292.chunk.js.LICENSE.txt",
     "static/media/SteelDemonLogo.346f9bfa.png": "/cryptools-sd/static/media/SteelDemonLogo.346f9bfa.png",
     "static/media/cryptoblades.0aadb6d1.png": "/cryptools-sd/static/media/cryptoblades.0aadb6d1.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.0291afd6.js",
-    "static/js/2.c90c4811.chunk.js",
-    "static/js/main.474e252c.chunk.js"
+    "static/js/runtime-main.57080e48.js",
+    "static/js/2.8dbef292.chunk.js",
+    "static/js/main.ce96975d.chunk.js"
   ]
 }
