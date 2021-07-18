@@ -142,7 +142,7 @@ const Portal = props => {
 					}} color={'#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},					
 					'ROICalcGasFee': {id: 'ROICalcGasFee', disabled: true, content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},					
 					'SkillEarningsPeso': {id: 'SkillEarningsPeso', disabled: true,  content: <DefaultColoredBlock title={'Skill Earnings in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
-					'SkillPhp': {id: 'SkillPhp', disabled: true, content: <DefaultColoredBlock title={'SKILL in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
+					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
 					'BNBBalanceSummary': {id: 'BNBBalanceSummary', content: <BNBBalance title={'BNB Balance Summary'} data={
 						{
 							balance: `${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.userBNBBalance}`,
