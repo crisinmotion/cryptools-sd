@@ -16,7 +16,7 @@ const UpdateBoard = (props) => {
     requestUpdateStatus(params);		
   };
 
-	const appVersion  = 'v1.0-beta.5'
+	const appVersion  = 'v1.0-beta.6'
 	const updateSettings = {
 		updateStatus: {
 			version: appVersion,
@@ -24,6 +24,8 @@ const UpdateBoard = (props) => {
 			updateContent: {
 				title: "What's new in version "+ appVersion,
 				content: [
+					"<strong>Gas Fees now shown on a single block along with its local currency value</strong>",
+					"<strong>BNB Balance now shown on a single block along with its local currency value</strong>",
 					"<strong>Farmed Coins in Cryptoblades is now merged into single block</strong> — You can now edit and update everything related to SKILL earnings",
 					"<strong>Bugfixes and Chores</strong>"
 				],
