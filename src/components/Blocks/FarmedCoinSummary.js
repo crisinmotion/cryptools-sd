@@ -108,7 +108,7 @@ const FarmedCoinSummary = props => {
 		const params = {
 			[farmingCurrency] : {
 				...userFarmingCurrenciesData,
-				id: userFarmingCurrenciesData.id || currencyId,
+				id: userFarmingCurrenciesData && userFarmingCurrenciesData.id || currencyId,
 				value: settings.earnings.total
 			}
 		}
@@ -207,6 +207,7 @@ const FarmedCoinSummary = props => {
 					<Typography variant={'caption'}>{settings && settings.userConfig && settings.userConfig.farmingCurrency + ' '}Consolidated Earnings</Typography>
 					<Typography variant={'h4'}>{numeral((settings.earnings && settings.earnings.total) || 0).format("0,0.0000")}</Typography>
 					{settings && settings.userConfig && <Typography variant={'caption'} component={'span'}>&#8776; {settings.userConfig.localCurrency} {numeral(convertedRate || 0).format("0,0.00")} <span style={{color: 'transparent'}}>l</span></Typography>}
+					{settings && settings.userConfig && <Typography variant={'caption'} component={'strong'}>@ {settings.userConfig.localCurrency} {numeral(exchangeRate || 0).format("0,0.00")}/{settings.userConfig.farmingCurrency} <span style={{color: 'transparent'}}>l</span></Typography>}
 				</div>
 				<Button variant={'contained'} color={'primary'} disableElevation onClick={()=> setConfirmSave(!confirmSave)}><SaveRounded/></Button>
 			</Container>

@@ -16,7 +16,7 @@ const UpdateBoard = (props) => {
     requestUpdateStatus(params);		
   };
 
-	const appVersion  = 'v1.0-beta.4'
+	const appVersion  = 'v1.0-beta.5'
 	const updateSettings = {
 		updateStatus: {
 			version: appVersion,
@@ -24,7 +24,7 @@ const UpdateBoard = (props) => {
 			updateContent: {
 				title: "What's new in version "+ appVersion,
 				content: [
-					"<strong>Match History Block</strong> — Past saved matches will be visible and listed on this block for review purposes. Only the present day record is editable via Daily Matches block.",
+					"<strong>Farmed Coins in Cryptoblades is now merged into single block</strong> — You can now edit and update everything related to SKILL earnings",
 					"<strong>Bugfixes and Chores</strong>"
 				],
 				warning: "This update may break your saved data or reset your board positions to default, please make sure you have a note of all the manual input data you specified on the App such as current earnings of the coin you are farming as well as the capital input and API Key from BSCScan",
