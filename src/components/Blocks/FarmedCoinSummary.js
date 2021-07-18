@@ -108,7 +108,7 @@ const FarmedCoinSummary = props => {
 		const params = {
 			[farmingCurrency] : {
 				...userFarmingCurrenciesData,
-				id: userFarmingCurrenciesData && userFarmingCurrenciesData.id || currencyId,
+				id: (userFarmingCurrenciesData && userFarmingCurrenciesData.id) || currencyId,
 				value: settings.earnings.total
 			}
 		}

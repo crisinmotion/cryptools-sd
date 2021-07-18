@@ -15,6 +15,7 @@ import _ from 'lodash';
 import DailyMatchBlock from "../components/Blocks/DailyMatchBlock";
 import MatchHistory from "../components/Blocks/MatchHistory";
 import FarmedCoinSummary from "../components/Blocks/FarmedCoinSummary";
+import LastTransactionsSummary from "../components/Blocks/LastTransactionsSummary";
 
 const  Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -135,8 +136,15 @@ const Portal = props => {
 					'SkillPhp': {id: 'SkillPhp', disabled: true, content: <DefaultColoredBlock title={'SKILL in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
 					'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={blockData.userBNBBalance} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
 					'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.userBNBBalanceExchange}`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}} setNotifications={setNotifications}/>},
-					'GasFeesTxns': {id: 'GasFeesTxns', content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
-					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
+					'LastTransactionsSummary': {id: 'LastTransactionsSummary', content: <LastTransactionsSummary title={'Gas Fees (Last 10k Transactions)'} data={
+						{
+							total: `${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.totalTransactions}`,
+							converted: `${userConfig && localCurrency} ${blockData.totalTransactionsInExchange}`,
+							localCurrency: localCurrency
+						}
+					} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
+					'GasFeesTxns': {id: 'GasFeesTxns', disabled: true, content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
+					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', disabled: true, content: <DefaultColoredBlock title={'Total CB Gas Fees in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
 					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},
 					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in ' + (userConfig && userConfig.capitalCurrency) } value={`${userConfig && userConfig.capitalCurrency} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}} setNotifications={setNotifications}/>},					
 					'SkillEarnings': {id: 'SkillEarnings', disabled:true, content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
