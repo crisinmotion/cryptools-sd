@@ -17,6 +17,7 @@ import MatchHistory from "../components/Blocks/MatchHistory";
 import FarmedCoinSummary from "../components/Blocks/FarmedCoinSummary";
 import LastTransactionsSummary from "../components/Blocks/LastTransactionsSummary";
 import BNBBalance from "../components/Blocks/BNBBalance";
+import EstimatedROISummary from "../components/Blocks/EstimatedROISummary";
 
 const  Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -132,7 +133,13 @@ const Portal = props => {
 					'FarmedCoinSummary': {id: 'FarmedCoinSummary', content: <FarmedCoinSummary title={'Skill Earnings Summary'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications} exchangeRate={currencyExchangeValue || 0}/>},
 					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'} exchangeRate={currencyExchangeValue || 0} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}} setNotifications={setNotifications}/>},					
 					'MatchHistory' : {id: 'MatchHistory', content: <MatchHistory title={'Match History'} dataSet={userMatches} color={'#480032'} style={{borderColor: '#362222', backgroundColor: '#F9F9F9'}} setNotifications={setNotifications}/>},					
-					'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},					
+					'ROICalcSummary': {id: 'ROICalcSummary', content: <EstimatedROISummary title={'ROI vs Gas Fees'} title2={'ROI vs Capital and Total Txns'} data={{
+						roigasfee: ROICalcGasFee,
+						roigascapsum: ROIGasVSCapitalAndSumTxns,
+						roigasformatted: `${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`,
+						roigascapsumformatted: `${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`
+					}} color={'#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},					
+					'ROICalcGasFee': {id: 'ROICalcGasFee', disabled: true, content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},					
 					'SkillEarningsPeso': {id: 'SkillEarningsPeso', disabled: true,  content: <DefaultColoredBlock title={'Skill Earnings in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
 					'SkillPhp': {id: 'SkillPhp', disabled: true, content: <DefaultColoredBlock title={'SKILL in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
 					'BNBBalanceSummary': {id: 'BNBBalanceSummary', content: <BNBBalance title={'BNB Balance Summary'} data={
@@ -151,7 +158,7 @@ const Portal = props => {
 					} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
 					'GasFeesTxns': {id: 'GasFeesTxns', disabled: true, content: <DefaultColoredBlock title={'Total CB Gas Fees (Last 1k Txns)'} value={`${(userData.currencies[0] && userData.currencies[0].symbol.toUpperCase()) || ''} ${blockData.totalTransactions}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
 					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', disabled: true, content: <DefaultColoredBlock title={'Total CB Gas Fees in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
-					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},
+					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', disabled: true, content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},
 					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in ' + (userConfig && userConfig.capitalCurrency) } value={`${userConfig && userConfig.capitalCurrency} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}} setNotifications={setNotifications}/>},					
 					'SkillEarnings': {id: 'SkillEarnings', disabled:true, content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
 					'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in ' + localCurrency} currency={localCurrency} currencyId={localCurrency} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}} setNotifications={setNotifications}/>}
