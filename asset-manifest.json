@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/cryptools-sd/static/js/main.7c4be413.chunk.js",
-    "main.js.map": "/cryptools-sd/static/js/main.7c4be413.chunk.js.map",
+    "main.js": "/cryptools-sd/static/js/main.5d972aa1.chunk.js",
+    "main.js.map": "/cryptools-sd/static/js/main.5d972aa1.chunk.js.map",
     "runtime-main.js": "/cryptools-sd/static/js/runtime-main.ba05c5f5.js",
     "runtime-main.js.map": "/cryptools-sd/static/js/runtime-main.ba05c5f5.js.map",
     "static/js/2.99b49fb3.chunk.js": "/cryptools-sd/static/js/2.99b49fb3.chunk.js",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime-main.ba05c5f5.js",
     "static/js/2.99b49fb3.chunk.js",
-    "static/js/main.7c4be413.chunk.js"
+    "static/js/main.5d972aa1.chunk.js"
   ]
 }
