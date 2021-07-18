@@ -3,17 +3,21 @@ import { connect } from "react-redux";
 import { DragDropContext } from 'react-beautiful-dnd';
 import DefaultColumn from "../components/Columns/Default";
 import DefaultWrapper from "../components/Wrappers/Default";
-import { Grid } from "@material-ui/core";
+import { Grid, Snackbar } from "@material-ui/core";
 import { setBlocks, updateColumnBlocks } from "../store/actions/boards.actions";
 import ConfigBlock from "../components/Blocks/ConfigBlock";
 import DefaultColoredBlock from "../components/Blocks/DefaultColoredBlock";
 import InputBlock from "../components/Blocks/InputBlock";
+import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import numeral from 'numeral';
 import _ from 'lodash';
 import DailyMatchBlock from "../components/Blocks/DailyMatchBlock";
 import MatchHistory from "../components/Blocks/MatchHistory";
 
+const  Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Portal = props => {
 	const { 
@@ -34,6 +38,7 @@ const Portal = props => {
 		}
 
 	 	const [userData, setUserData] = useState(DEFAULT_USERDATA)
+		 const [notifications, setNotifications] = useState(null)
 		const [isLoading, setIsLoading] = useState(false)
 
 		useEffect(() => {
@@ -76,9 +81,9 @@ const Portal = props => {
 							setIsLoading(false)
 						})
 					)
-					.catch(errors => {
-						// react on errors.
-						console.error(errors);
+					.catch((errors, response) => {
+						// react on errors.						
+						setNotifications({options: {severity: 'error', text: `API ${errors.name}: ${errors.response.data.error}` }})						
 						setIsLoading(false)
 					});
 			}
@@ -234,21 +239,39 @@ const Portal = props => {
 		updateColumnBlocks(params)
 	}
 	
+	const closeNotification = (event, reason)=>{
+		if (reason === 'clickaway') {
+      return;
+    }
+		setNotifications(null)
+	}
   return (
-		<DragDropContext onDragEnd={handleDragEnd}>
-			<DefaultWrapper>
-				<Grid container spacing={1}>
-				{
-					boards && boards.columnOrder && boards.columnOrder.map((columnId) => {
-						const column = boards.columns[columnId]
-						const blocks = column.blockIds.map(blockId => BLOCK_OBJECT.blocks[blockId])						
-						return <Grid item xs={12} md={6} lg={4} key={column.id}><DefaultColumn column={column} blocks={blocks}/></Grid>
-					})
-				}
-				</Grid>
-				
-			</DefaultWrapper>
-		</DragDropContext>
+		<div>
+			{ notifications && notifications.options && Object.keys(notifications.options).length > 0 &&
+			<Snackbar open={notifications && notifications.options && Object.keys(notifications.options).length > 0 } autoHideDuration={6000} onClose={closeNotification}
+				message={notifications.options.text}
+				anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+			>
+				<Alert severity={notifications.options.severity} onClose={closeNotification} style={{textTransform: 'capitalize'}}>
+					{notifications && notifications.options && notifications.options.text}
+				</Alert>
+			</Snackbar>
+			}
+			<DragDropContext onDragEnd={handleDragEnd}>
+				<DefaultWrapper>
+					<Grid container spacing={1}>
+					{
+						boards && boards.columnOrder && boards.columnOrder.map((columnId) => {
+							const column = boards.columns[columnId]
+							const blocks = column.blockIds.map(blockId => BLOCK_OBJECT.blocks[blockId])
+							return <Grid item xs={12} md={6} lg={4} key={column.id}><DefaultColumn column={column} blocks={blocks}/></Grid>
+						})
+					}
+					</Grid>
+			
+				</DefaultWrapper>
+			</DragDropContext>
+		</div>
   );
 };
 
