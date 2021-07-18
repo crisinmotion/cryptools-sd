@@ -36,6 +36,16 @@ const errorHandler = (error, info) => {
 	}
 }
 
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  )
+}
+
 
 
 const MatchHistory = props => {
@@ -57,7 +67,7 @@ const MatchHistory = props => {
 	const historyDays = dataSet && Object.keys(dataSet).length > 0 && Object.keys(dataSet).map((key, i)=> { return {...dataSet[key], id: dataSet[key].dateTime, dateTime: moment(dataSet[key].dateTime).format("MM/DD/YYYY")} })
 	
   return (
-		<ErrorBoundary onError={errorHandler}>
+		<ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
 			<div style={ style } className={classes.root}>
 				<Typography variant={'button'} display={'block'} gutterBottom>{title}</Typography>
 				

@@ -14,6 +14,7 @@ import numeral from 'numeral';
 import _ from 'lodash';
 import DailyMatchBlock from "../components/Blocks/DailyMatchBlock";
 import MatchHistory from "../components/Blocks/MatchHistory";
+import FarmedCoinSummary from "../components/Blocks/FarmedCoinSummary";
 
 const  Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -129,7 +130,8 @@ const Portal = props => {
 					'DailyMatches' : {id: 'DailyMatches', content: <DailyMatchBlock title={'Daily Matches'} exchangeRate={currencyExchangeValue || 0} color={'#480032'} style={{borderColor: '#FF449F', backgroundColor: '#DFEEEA'}} setNotifications={setNotifications}/>},					
 					'MatchHistory' : {id: 'MatchHistory', content: <MatchHistory title={'Match History'} dataSet={userMatches} color={'#480032'} style={{borderColor: '#362222', backgroundColor: '#F9F9F9'}} setNotifications={setNotifications}/>},					
 					'ROICalcGasFee': {id: 'ROICalcGasFee', content: <DefaultColoredBlock title={'ROI vs Gas Fees'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROICalcGasFee}`} color={ ROICalcGasFee > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#E06666', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},
-					'SkillEarningsPeso': {id: 'SkillEarningsPeso', content: <DefaultColoredBlock title={'Skill Earnings in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
+					'FarmedCoinSummary': {id: 'FarmedCoinSummary', content: <FarmedCoinSummary title={'Skill Earnings Summary'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications} exchangeRate={currencyExchangeValue || 0}/>},
+					'SkillEarningsPeso': {id: 'SkillEarningsPeso', disabled: true,  content: <DefaultColoredBlock title={'Skill Earnings in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.currencyEarningExchange}`} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
 					'SkillPhp': {id: 'SkillPhp', content: <DefaultColoredBlock title={'SKILL in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.currencyExchangeValue}`} color={'#B45F06'} style={{borderColor: '#B45F06', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
 					'BNBBalance': {id: 'BNBBalance', content: <DefaultColoredBlock title={'BNB Balance'} value={blockData.userBNBBalance} color={'#8E7118'} style={{borderColor: '#8E7118', backgroundColor: '#FFF2CC'}} setNotifications={setNotifications}/>},
 					'BNBBalancePHP': {id: 'BNBBalancePHP', content: <DefaultColoredBlock title={'BNB Balance in ' + localCurrency} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.userBNBBalanceExchange}`} color={'#6AA84F'} style={{borderColor: '#6AA84F', backgroundColor: '#D9EAD3'}} setNotifications={setNotifications}/>},
@@ -137,7 +139,7 @@ const Portal = props => {
 					'GasFeesTxnsPeso': {id: 'GasFeesTxnsPeso', content: <DefaultColoredBlock title={'Total CB Gas Fees in ' + localCurrency} value={`${userConfig && localCurrency} ${blockData.totalTransactionsInExchange}`} color={'#A64D79'} style={{borderColor: '#A64D79', backgroundColor: '#EAD1DC'}} setNotifications={setNotifications}/>},
 					'ROIGasVSCapitalAndSumTxns': {id: 'ROIGasVSCapitalAndSumTxns', content: <DefaultColoredBlock title={'ROI vs Capital and Total Txns'} value={`${userConfig && userConfig.localCurrency.toUpperCase()} ${blockData.ROIGasVSCapitalAndSumTxns}`} color={ROIGasVSCapitalAndSumTxns > 0 ? '#6AA84F' : '#E06666'} style={{borderColor: '#1155CC', backgroundColor: '#FFF6F4'}} setNotifications={setNotifications}/>},
 					'TotalInitialInvestmentPeso': {id: 'TotalInitialInvestmentPeso', content: <DefaultColoredBlock title={'Total Initial Investment in ' + (userConfig && userConfig.capitalCurrency) } value={`${userConfig && userConfig.capitalCurrency} ${blockData.TotalInitialInvestmentPeso}`} color={'#4285F4'} style={{borderColor: '#4285F4', backgroundColor: '#FFFFFF'}} setNotifications={setNotifications}/>},					
-					'SkillEarnings': {id: 'SkillEarnings', content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
+					'SkillEarnings': {id: 'SkillEarnings', disabled:true, content: <InputBlock title={'Skill Earnings'} currency={'SKILL'} currencyId={'cryptoblades'} color={'#674EA7'} style={{borderColor: '#674EA7', backgroundColor: '#D9D2E9'}} setNotifications={setNotifications}/>},
 					'CapitalInvestment': {id: 'CapitalInvestment', content: <InputBlock title={'Capital Invested in ' + localCurrency} currency={localCurrency} currencyId={localCurrency} color={'#4285F4'} style={{borderColor: '#38761D', backgroundColor: '#f2f2f2'}} setNotifications={setNotifications}/>}
 				},		 
 			}

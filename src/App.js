@@ -14,11 +14,21 @@ const errorHandler = (error, info) => {
 	}
 }
 
+function ErrorFallback({error, resetErrorBoundary}) {
+  return (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      <button onClick={resetErrorBoundary}>Try again</button>
+    </div>
+  )
+}
+
 const App = props => {
   return(
     <MuiThemeProvider theme={DEFAULT_THEME} >
       <CssBaseline />
-      <ErrorBoundary onError={errorHandler}>
+      <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
 				<div>
 					<Routes />
 				</div>

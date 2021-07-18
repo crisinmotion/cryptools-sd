@@ -4,7 +4,8 @@ import {
 	SET_CONFIGURATIONS,
 	SET_USER_CURRENCIES,
 	SET_USER_MATCHES,
-	SET_UPDATE_STATUS
+	SET_UPDATE_STATUS,
+	SET_FARM_SUMMARY
 } from "../constants/settings.constants";
 
 export const toggleDrawer = (params) => {
@@ -44,6 +45,12 @@ export const setUserMatches = (params) => {
 export const setUpdateStatus = (params) => {
   return {
     type: SET_UPDATE_STATUS,
+    params
+  };
+}
+export const setUserEarnings = (params) => {
+  return {
+    type: SET_FARM_SUMMARY,
     params
   };
 }

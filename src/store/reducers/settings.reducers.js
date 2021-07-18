@@ -4,7 +4,8 @@ import {
 	SET_CONFIGURATIONS,
 	SET_USER_CURRENCIES,
 	SET_USER_MATCHES,
-	SET_UPDATE_STATUS
+	SET_UPDATE_STATUS,
+	SET_FARM_SUMMARY
 } from "../constants/settings.constants";
 
 const INITIAL_STATE = { 
@@ -43,6 +44,12 @@ const SETTINGS_REDUCER = (state = INITIAL_STATE, action) => {
 					...state.userCurrencies,
 					...action.params
 				}
+			}
+		case SET_FARM_SUMMARY :
+			return {
+				...state,		
+				...action.params
+		
 			}
 		case SET_UPDATE_STATUS :			
 			return {
