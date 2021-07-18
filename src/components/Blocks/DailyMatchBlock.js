@@ -123,7 +123,7 @@ const MatchCounterBlock = props => {
 
   return (
 		<div style={ style } className={classes.root}>
-			<Typography variant={'button'} display={'block'} gutterBottom>{title}</Typography>
+			<Typography variant={'button'} display={'block'} gutterBottom style={{marginBottom: theme.spacing(3)}}>{title}</Typography>
 			{ config.todayMatches && Object.keys(config.todayMatches).length > 0 && settings && settings.todayMatches && Object.keys(settings.todayMatches).length > 0 &&
 				<Grid container spacing={2}>
 					<Grid item xs={6}>
