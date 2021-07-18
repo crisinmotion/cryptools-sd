@@ -95,7 +95,7 @@ const Portal = props => {
 			const capitalCurrency = userConfig && userCurrencies && userCurrencies[userConfig.capitalCurrency] ? userCurrencies[userConfig.capitalCurrency] : 'PHP'
 
 		
-			const totalTransactionsList = _.filter(userData.userWalletTransactions && userData.userWalletTransactions.result, function(o) { return o.to === '0x39bea96e13453ed52a734b6aceed4c41f57b2271'; });
+			const totalTransactionsList = _.filter(userData.userWalletTransactions && userData.userWalletTransactions.result, function(o) { return  o.isError === '0' && o.to === '0x39bea96e13453ed52a734b6aceed4c41f57b2271' });						
 			const totalTransactions = (5000000000 * (totalTransactionsList.reduce((total, obj) => (parseInt(obj.gasUsed)) + total,0)))/1000000000000000000
 
 			const currencyExchangeValue = userData.currencies[1] && userData.currencies[1].current_price
